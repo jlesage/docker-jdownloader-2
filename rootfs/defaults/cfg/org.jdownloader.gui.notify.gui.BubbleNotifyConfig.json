@@ -1,0 +1,17 @@
+{
+  "bubblenotifyenabledstate" : "NEVER",
+  "bubblenotifyonnewlinkgrabberlinksenabled" : true,
+  "defaulttimeout" : 15000,
+  "screenid" : "\\Display9999",
+  "bubblenotifyonnewlinkgrabberlinkson" : "LINK",
+  "bubblenotifyonupdateavailableenabled" : true,
+  "bubblenotifyenabledduringsilentmode" : false,
+  "fadeanimationduration" : 900,
+  "bubblenotifystartpausestopenabled" : true,
+  "bubblenotifyonreconnectstartenabled" : true,
+  "animationstartpositionanchor" : "SYSTEM_DEFAULT",
+  "animationendpositionanchor" : "SYSTEM_DEFAULT",
+  "bubblenotifystartstopdownloadsenabled" : false,
+  "finalpositionanchor" : "SYSTEM_DEFAULT",
+  "bubblenotifyoncaptchainbackgroundenabled" : true
+}

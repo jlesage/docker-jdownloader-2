@@ -1,0 +1,10 @@
+{
+  "freshinstall" : false,
+  "onminimizeaction" : "TO_TASKBAR",
+  "tooltipenabled" : true,
+  "oncloseaction" : "ASK",
+  "tooglewindowstatuswithsingleclickenabled" : false,
+  "enabled" : false,
+  "startminimizedenabled" : false,
+  "trayonlyvisibleifwindowishiddenenabled" : false
+}

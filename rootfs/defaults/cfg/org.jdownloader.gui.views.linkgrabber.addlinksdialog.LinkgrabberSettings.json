@@ -1,0 +1,10 @@
+{
+  "autoextractionenabled" : true,
+  "variantscolumnalwaysvisible" : false,
+  "linkgrabberautostartenabled" : true,
+  "variouspackageenabled" : true,
+  "latestdownloaddestinationfolder" : "/output",
+  "linkgrabberaddattop" : false,
+  "linkgrabberautoconfirmenabled" : false,
+  "autoconfirmdelay" : 15000
+}

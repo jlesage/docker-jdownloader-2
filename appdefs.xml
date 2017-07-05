@@ -1,0 +1,58 @@
+<!--
+Definitions for JDownloader 2 docker container.
+
+This file is used as data source to generate README.md and unRAID template files
+from Jinja2 templates.
+-->
+<app>
+  <id>7</id>
+  <friendly_name>JDownloader 2</friendly_name>
+  <name>{{ app.friendly_name|lower|replace(' ', '-') }}</name>
+  <project>
+    <description>
+JDownloader 2 is a free, open-source download management tool with a huge
+community of developers that makes downloading as easy and fast as it should be.
+Users can start, stop or pause downloads, set bandwith limitations, auto-extract
+archives and much more. It's an easy-to-extend framework that can save hours of
+your valuable time every day!
+    </description>
+    <url>http://jdownloader.org/</url>
+  </project>
+  <unraid>
+    <support_url>https://forums.lime-technology.com/topic/XXXXX-support-jdownloader-2/</support_url>
+    <category>Downloaders:</category>
+  </unraid>
+  <container>
+    <rough_download_size>100MB</rough_download_size>
+    <storage_permissions>ro</storage_permissions>
+    <!-- Environment variables -->
+    <!-- Volumes -->
+    <volume>
+      <container_path>/output</container_path>
+      <host_path_example>$HOME/Downloads</host_path_example>
+      <description>This is where downloaded files are stored.</description>
+      <permissions>rw</permissions>
+      <include_in_quick_start>true</include_in_quick_start>
+      <unraid_template>
+        <title>Output Directory</title>
+        <description>This is the default output folder for downloaded files.[br]Container path: /output</description>
+        <display>always-hide</display>
+        <required>true</required>
+        <mask>false</mask>
+      </unraid_template>
+    </volume>
+    <!-- Network ports -->
+    <!-- Devices -->
+  </container>
+  <!-- Extra stuff to be added to the documentation. -->
+  <documentation>
+  </documentation>
+  <!-- Changelog of the application. -->
+  <history>
+    <release>
+      <version>1.0.0</version>
+      <date>2017-07-05</date>
+      <change>Initial release.</change>
+    </release>
+  </history>
+</app>
