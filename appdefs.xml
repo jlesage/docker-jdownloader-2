@@ -24,9 +24,9 @@ your valuable time every day!
   </unraid>
   <container>
     <rough_download_size>100MB</rough_download_size>
-    <storage_permissions>ro</storage_permissions>
     <!-- Environment variables -->
     <!-- Volumes -->
+    <unsupported_volume>/storage</unsupported_volume>
     <volume>
       <container_path>/output</container_path>
       <host_path_example>$HOME/Downloads</host_path_example>
