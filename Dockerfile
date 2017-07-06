@@ -32,7 +32,8 @@ RUN \
 COPY rootfs/ /
 
 # Set environment variables.
-ENV APP_NAME="JDownloader 2"
+ENV APP_NAME="JDownloader 2" \
+    S6_KILL_FINISH_MAXTIME=20000
 
 # Define mountable directories.
 VOLUME ["/config"]
