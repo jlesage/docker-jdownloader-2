@@ -9,8 +9,16 @@
 #       https://bugs.alpinelinux.org/issues/7372
 FROM jlesage/baseimage-gui:alpine-3.5-v1.5.0
 
+# Define software download URLs.
+ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
+
 # Define working directory.
 WORKDIR /tmp
+
+# Download JDownloader 2.
+RUN \
+    mkdir -p /defaults && \
+    wget ${JDOWNLOADER_URL} -O /defaults/JDownloader.jar
 
 # Install dependencies.
 RUN \
