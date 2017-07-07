@@ -6,7 +6,7 @@ trap "exit" TERM QUIT INT
 trap "kill_jd" EXIT
 
 log() {
-    echo "[jdstarter] $*"
+    echo "[jdsupervisor] $*"
 }
 
 getpid_jd() {
