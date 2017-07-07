@@ -2,12 +2,6 @@
 
 set -u # Treat unset variables as an error.
 
-# Make sure we appear with a proper name under `ps`.
-#if [ ! -L "$0" ]; then
-#    ln -s run "$(dirname "$0")/jdstarter"
-#    exec "$(dirname "$0")/jdstarter" "$@"
-#fi
-
 trap "exit" TERM QUIT INT
 trap "kill_jd" EXIT
 
