@@ -50,6 +50,13 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
     <release>
+      <version>1.0.1</version>
+      <date>2017-07-07</date>
+      <change>Fixed the auto archive extractor.</change>
+      <change>Allow more time to JDownloader to gracefully shutdown.</change>
+      <change>Improved handling/monitoring of JDownloader process.</change>
+    </release>
+    <release>
       <version>1.0.0</version>
       <date>2017-07-05</date>
       <change>Initial release.</change>
