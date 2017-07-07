@@ -25,7 +25,7 @@ FROM jlesage/baseimage-gui:alpine-3.5-glibc-v1.5.0
 
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
-ARG ORACLEJAVAJRE_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jre-8u131-linux-x64.tar.gz
+ARG ORACLEJAVAJRE_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/server-jre-8u131-linux-x64.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
@@ -40,11 +40,9 @@ RUN \
 RUN \
     apk --no-cache add --virtual build-dependencies curl && \
     mkdir /opt/jre && \
-    curl -# -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${ORACLEJAVAJRE_URL} | tar -xz --strip 1 -C /opt/jre && \
+    curl -# -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${ORACLEJAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre jdk1.8.0_131/jre && \
     rm -r \
-        /opt/jre/lib/desktop \
-        /opt/jre/man \
-        /opt/jre/plugin
+        /opt/jre/lib/oblique-fonts
 
 # Install dependencies.
 RUN \
