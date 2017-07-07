@@ -38,7 +38,7 @@ start_jd() {
 
 kill_jd() {
     PID="$(getpid_jd)"
-    if [ "${PID:-UNSET}" != "UNSET" ]; then
+    if [ "$PID" != "UNSET" ]; then
         log "Terminating JDownloader2..."
         kill $PID
         wait $PID
@@ -52,7 +52,7 @@ if [ -f /tmp/.jd_not_started_yet ]; then
 fi
 
 JD_NOT_RUNNING=0
-while [ "$JD_NOT_RUNNING" -le 2 ]
+while [ "$JD_NOT_RUNNING" -lt 5 ]
 do
     if is_jd_running; then
         JD_NOT_RUNNING=0
