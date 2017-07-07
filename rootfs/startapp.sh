@@ -9,8 +9,24 @@ log() {
     echo "[jdstarter] $*"
 }
 
+getpid_jd() {
+    PID=UNSET
+    if [ -f /config/JDownloader.pid ]; then
+        PID="$(cat /config/JDownloader.pid)"
+        # Make sure the saved PID is still running and is associated to
+        # JDownloader.
+        if [ ! -f /proc/$PID/cmdline ] || ! cat /proc/$PID/cmdline | grep -qw "JDownloader.jar"; then
+            PID=UNSET
+        fi
+    fi
+    if [ "$PID" = "UNSET" ]; then
+        PID="$(ps -o pid,args | grep -w "JDownloader.jar" | grep -vw grep | tr -s ' ' | cut -d' ' -f2)"
+    fi
+    echo "${PID:-UNSET}"
+}
+
 is_jd_running() {
-    ps | grep -vw "grep" | grep -qw "JDownloader.jar"
+    [ "$(getpid_jd)" != "UNSET" ]
 }
 
 start_jd() {
@@ -21,27 +37,27 @@ start_jd() {
 }
 
 kill_jd() {
-    PID="$(ps -o pid,args | grep -w "JDownloader.jar" | grep -vw grep | tr -s ' ' | cut -d' ' -f2)"
+    PID="$(getpid_jd)"
     if [ "${PID:-UNSET}" != "UNSET" ]; then
         log "Terminating JDownloader2..."
         kill $PID
-        while is_jd_running; do sleep 1; done
+        wait $PID
     fi
 }
 
-JD_STARTED=0
-JD_STOPPED=0
-while [ "$JD_STOPPED" -le 2 ]
+if [ -f /tmp/.jd_not_started_yet ]; then
+    log "JDownloader2 not started yet.  Proceeding..."
+    start_jd
+    rm /config/.jd_not_started_yet
+fi
+
+JD_NOT_RUNNING=0
+while [ "$JD_NOT_RUNNING" -le 2 ]
 do
     if is_jd_running; then
-        JD_STARTED=1
-        JD_STOPPED=0
-    elif [ "$JD_STARTED" -eq 0 ]; then
-        log "JDownloader2 not started yet.  Proceeding..."
-        start_jd
-        JD_STARTED=1
+        JD_NOT_RUNNING=0
     else
-        JD_STOPPED="$(expr $JD_STOPPED + 1)"
+        JD_NOT_RUNNING="$(expr $JD_NOT_RUNNING + 1)"
     fi
     sleep 1
 done
