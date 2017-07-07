@@ -30,7 +30,7 @@ is_jd_running() {
 }
 
 start_jd() {
-    /usr/lib/jvm/java-1.8-openjdk/jre/bin/java \
+    /opt/jre/bin/java \
         -Dawt.useSystemAAFontSettings=gasp \
         -Djava.awt.headless=false \
         -jar /config/JDownloader.jar &>/config/output.log &

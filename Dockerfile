@@ -3,14 +3,29 @@
 #
 # https://github.com/jlesage/docker-jdownloader-2
 #
+################################################################################
+# 7-Zip-JBinding Workaround
+#
+# JDownloader works well with the native openjdk8-jre package.  There is one
+# exception: the auto archive extractor.  This feature uses 7-Zip-JBinding,
+# which provides a platform-specific library (.so).  The one for Linux x86_64
+# has been compiled against glibc and this is not loading correctly on Alpine.
+#
+# To work around this issue (until we get a proper support of 7-Zip-JBinding on
+# Alpine), we need to:
+#     - Get glibc, by using the glibc version of the baseimage.
+#     - Use Oracle JRE, to have a glibc-based Java VM.
+################################################################################
 
 # Pull base image.
 # NOTE: Need to keep Alpine 3.5 until the following bug is resolved:
 #       https://bugs.alpinelinux.org/issues/7372
-FROM jlesage/baseimage-gui:alpine-3.5-v1.5.0
+# NOTE: glibc version if the image is needed for the 7-Zip-JBinding workaround.
+FROM jlesage/baseimage-gui:alpine-3.5-glibc-v1.5.0
 
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
+ARG ORACLEJAVAJRE_URL=http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jre-8u131-linux-x64.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
@@ -20,10 +35,26 @@ RUN \
     mkdir -p /defaults && \
     wget ${JDOWNLOADER_URL} -O /defaults/JDownloader.jar
 
+# Download and install Oracle JRE.
+# NOTE: This is needed only for the 7-Zip-JBinding workaround.
+RUN \
+    apk --no-cache add --virtual build-dependencies curl && \
+    mkdir /opt/jre && \
+    curl -# -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${ORACLEJAVAJRE_URL} | tar -xz --strip 1 -C /opt/jre && \
+    rm -r \
+        /opt/jre/lib/desktop \
+        /opt/jre/man \
+        /opt/jre/plugin
+
 # Install dependencies.
 RUN \
     apk --no-cache add \
-        openjdk8-jre \
+        # For the 7-Zip-JBinding workaround, Oracle JRE is needed instead of
+        # the Alpine Linux's openjdk native package.
+        # The libstdc++ package is also needed as part of the 7-Zip-JBinding
+        # workaround.
+        #openjdk8-jre \
+        libstdc++ \
         ttf-dejavu
 
 # Maximize only the main/initial window.
