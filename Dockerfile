@@ -3,7 +3,7 @@
 #
 # https://github.com/jlesage/docker-jdownloader-2
 #
-################################################################################
+# ##############################################################################
 # 7-Zip-JBinding Workaround
 #
 # JDownloader works well with the native openjdk8-jre package.  There is one
@@ -15,7 +15,7 @@
 # Alpine), we need to:
 #     - Get glibc, by using the glibc version of the baseimage.
 #     - Use Oracle JRE, to have a glibc-based Java VM.
-################################################################################
+# ##############################################################################
 
 # Pull base image.
 # NOTE: Need to keep Alpine 3.5 until the following bug is resolved:
