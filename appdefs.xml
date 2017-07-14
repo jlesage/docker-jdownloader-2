@@ -4,10 +4,12 @@ Definitions for JDownloader 2 docker container.
 This file is used as data source to generate README.md and unRAID template files
 from Jinja2 templates.
 -->
+<defs>
 <app>
   <id>7</id>
+  <gui>True</gui>
   <friendly_name>JDownloader 2</friendly_name>
-  <name>{{ app.friendly_name|lower|replace(' ', '-') }}</name>
+  <name>{{ defs.app.friendly_name|lower|replace(' ', '-') }}</name>
   <project>
     <description>
 JDownloader 2 is a free, open-source download management tool with a huge
@@ -24,25 +26,7 @@ your valuable time every day!
   </unraid>
   <container>
     <rough_download_size>100MB</rough_download_size>
-    <!-- Environment variables -->
-    <!-- Volumes -->
     <unsupported_volume>/storage</unsupported_volume>
-    <volume>
-      <container_path>/output</container_path>
-      <host_path_example>$HOME/Downloads</host_path_example>
-      <description>This is where downloaded files are stored.</description>
-      <permissions>rw</permissions>
-      <include_in_quick_start>true</include_in_quick_start>
-      <unraid_template>
-        <title>Output Directory</title>
-        <description>This is the default output folder for downloaded files.[br]Container path: /output</description>
-        <display>always-hide</display>
-        <required>true</required>
-        <mask>false</mask>
-      </unraid_template>
-    </volume>
-    <!-- Network ports -->
-    <!-- Devices -->
   </container>
   <!-- Extra stuff to be added to the documentation. -->
   <documentation>
@@ -63,3 +47,29 @@ your valuable time every day!
     </release>
   </history>
 </app>
+  <container>
+    <!-- Environment variables -->
+    <environment_variables/>
+    <!-- Volumes -->
+    <volumes>
+    <volume>
+      <container_path>/output</container_path>
+      <host_path_example>$HOME/Downloads</host_path_example>
+      <description>This is where downloaded files are stored.</description>
+      <permissions>rw</permissions>
+      <include_in_quick_start>true</include_in_quick_start>
+      <unraid_template>
+        <title>Output Directory</title>
+        <description>This is the default output folder for downloaded files.[br]Container path: /output</description>
+        <display>always-hide</display>
+        <required>true</required>
+        <mask>false</mask>
+      </unraid_template>
+    </volume>
+    </volumes>
+    <!-- Network ports -->
+    <ports/>
+    <!-- Devices -->
+    <devices/>
+  </container>
+</defs>
