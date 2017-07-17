@@ -21,7 +21,7 @@
 # NOTE: Need to keep Alpine 3.5 until the following bug is resolved:
 #       https://bugs.alpinelinux.org/issues/7372
 # NOTE: glibc version if the image is needed for the 7-Zip-JBinding workaround.
-FROM jlesage/baseimage-gui:alpine-3.5-glibc-v1.5.0
+FROM jlesage/baseimage-gui:alpine-3.5-glibc-v2.0.0
 
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
@@ -38,15 +38,15 @@ RUN \
 # Download and install Oracle JRE.
 # NOTE: This is needed only for the 7-Zip-JBinding workaround.
 RUN \
-    apk --no-cache add --virtual build-dependencies curl && \
+    add-pkg --virtual build-dependencies curl && \
     mkdir /opt/jre && \
     curl -# -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${ORACLEJAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre jdk1.8.0_131/jre && \
-    rm -r \
-        /opt/jre/lib/oblique-fonts
+    rm -r /opt/jre/lib/oblique-fonts && \
+    del-pkg build-dependencies
 
 # Install dependencies.
 RUN \
-    apk --no-cache add \
+    add-pkg \
         # For the 7-Zip-JBinding workaround, Oracle JRE is needed instead of
         # the Alpine Linux's openjdk native package.
         # The libstdc++ package is also needed as part of the 7-Zip-JBinding
@@ -57,13 +57,13 @@ RUN \
 
 # Maximize only the main/initial window.
 RUN \
-    sed -i 's/<application type="normal">/<application type="normal" title="JDownloader 2">/' \
-        $HOME/.config/openbox/rc.xml
+    sed-patch 's/<application type="normal">/<application type="normal" title="JDownloader 2">/' \
+        /etc/xdg/openbox/rc.xml
 
 # Generate and install favicons.
 RUN \
     APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png && \
-    /opt/install_app_icon.sh "$APP_ICON_URL"
+    install_app_icon.sh "$APP_ICON_URL"
 
 # Add files.
 COPY rootfs/ /
