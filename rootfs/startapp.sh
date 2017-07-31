@@ -48,7 +48,7 @@ kill_jd() {
 if [ -f /tmp/.jd_not_started_yet ]; then
     log "JDownloader2 not started yet.  Proceeding..."
     start_jd
-    rm /config/.jd_not_started_yet
+    rm /tmp/.jd_not_started_yet
 fi
 
 JD_NOT_RUNNING=0
