@@ -34,6 +34,11 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.1.5</version>
+        <date>2017-07-31</date>
+        <change>Properly remove the first run indication.</change>
+      </release>
+      <release>
         <version>1.1.4</version>
         <date>2017-07-31</date>
         <change>Now using baseimage v2.0.5, which brings the following changes (from last used version):</change>
