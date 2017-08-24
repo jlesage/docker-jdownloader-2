@@ -18,14 +18,17 @@ echo "Environment variables:
     IMAGE_VERSION=$IMAGE_VERSION
 "
 
-if [[ "$DOCKER_TAG" =~ -alpha[0-9]*$ ]]; then
-    DOCKER_NEWTAG="alpha"
-elif [[ "$DOCKER_TAG" =~ -beta[0-9]*$ ]]; then
-    DOCKER_NEWTAG="beta"
-elif [[ "$DOCKER_TAG" =~ -rc[0-9]*$ ]]; then
-    DOCKER_NEWTAG="rc"
-else
+if [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-alpha[0-9]+$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-alpha[0-9]\+$/-alpha/')"
+elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-beta[0-9]+$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-beta[0-9]\+$/-beta/')"
+elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+-rc[0-9]+$ ]]; then
+    DOCKER_NEWTAG="$(echo "$DOCKER_TAG" | sed 's/-rc[0-9]\+$/-rc/')"
+elif [[ "$DOCKER_TAG" =~ v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     DOCKER_NEWTAG="latest"
+else
+    echo "ERROR: Invalid docker tag."
+    exit 1
 fi
 
 echo "Adding tag '$DOCKER_NEWTAG' to image..."
