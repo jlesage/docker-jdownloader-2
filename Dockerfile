@@ -20,7 +20,7 @@
 # Pull base image.
 # NOTE: Need to keep Alpine 3.5 until the following bug is resolved:
 #       https://bugs.alpinelinux.org/issues/7372
-# NOTE: glibc version if the image is needed for the 7-Zip-JBinding workaround.
+# NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
 FROM jlesage/baseimage-gui:alpine-3.5-glibc-v2.0.6
 
 # Define software download URLs.
@@ -70,7 +70,7 @@ COPY rootfs/ /
 
 # Set environment variables.
 ENV APP_NAME="JDownloader 2" \
-    S6_KILL_FINISH_MAXTIME=20000
+    S6_KILL_GRACETIME=20000
 
 # Define mountable directories.
 VOLUME ["/config"]
