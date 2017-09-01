@@ -34,6 +34,12 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.1.7</version>
+        <date>2017-09-01</date>
+        <change>Fixed issue where the first-run indication had the wrong ownership.</change>
+        <change>Fixedissue where increase of the time before forcefully killing processes was not respected.</change>
+      </release>
+      <release>
         <version>1.1.6</version>
         <date>2017-08-14</date>
         <change>Now using baseimage v2.0.6, which brings the following changes:</change>
