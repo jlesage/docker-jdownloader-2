@@ -21,7 +21,7 @@
 # NOTE: Need to keep Alpine 3.5 until the following bug is resolved:
 #       https://bugs.alpinelinux.org/issues/7372
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
-FROM jlesage/baseimage-gui:alpine-3.5-glibc-v2.0.6
+FROM jlesage/baseimage-gui:alpine-3.6-glibc-v2.0.8
 
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
