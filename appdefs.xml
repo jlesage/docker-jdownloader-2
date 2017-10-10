@@ -34,6 +34,13 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.2.0</version>
+        <date>2017-10-10</date>
+        <change>Now using baseimage v3.0.2, which brings the following changes:</change>
+        <change level="2">Better support for service dependencies.</change>
+        <change level="2">Added support for secure access to the application's GUI.</change>
+      </release>
+      <release>
         <version>1.1.8</version>
         <date>2017-09-08</date>
         <change>Now using baseimage v2.0.8, which brings the following changes (from last used version):</change>
