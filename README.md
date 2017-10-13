@@ -73,7 +73,8 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`CLEAN_TMP_DIR`| When set to `1`, all files in the `/tmp` directory are delete during the container startup. | `1` |
 |`DISPLAY_WIDTH`| Width (in pixels) of the application's window. | `1280` |
 |`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `768` |
-|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Pasword](#vnc-password) section for more details. | (unset) |
+|`SECURE_CONNECTION`| When set to `1`, an encrypted connection is used to access the application's GUI (either via web browser or VNC client).  See the [Security](#security) section for more details. | `0` |
+|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (unset) |
 |`X11VNC_EXTRA_OPTS`| Extra options to pass to the x11vnc server running in the Docker container.  **WARNING**: For advanced users. Do not use unless you know what you are doing. | (unset) |
 
 ### Data Volumes
@@ -97,7 +98,7 @@ container cannot be changed, but you are free to use any port on the host side.
 | Port | Mapping to host | Description |
 |------|-----------------|-------------|
 | 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
-| 5900 | Mandatory | Port used to access the application's GUI via the VNC protocol. |
+| 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
 
 ## User/Group IDs
 
@@ -126,8 +127,8 @@ be given the container.
 
 ## Accessing the GUI
 
-Assuming the host is mapped to the same ports as the container, the graphical
-interface of the application can be accessed via:
+Assuming that container's ports are mapped to the same host's ports, the
+graphical interface of the application can be accessed via:
 
   * A web browser:
 ```
@@ -139,27 +140,54 @@ http://<HOST IP ADDR>:5800
 <HOST IP ADDR>:5900
 ```
 
-If different ports are mapped to the host, make sure they respect the
-following formula:
+## Security
 
-    VNC_PORT = HTTP_PORT + 100
+By default, access to the application's GUI is done over an unencrypted
+connection (HTTP or VNC).
 
-This is to make sure accessing the GUI with a web browser can be done without
-specifying the VNC port manually.  If this is not possible, then specify
-explicitly the VNC port like this:
+Secure connection can be enabled via the `SECURE_CONNECTION` environment
+variable.  See the [Environment Variables](#environment-variables) section for
+more details on how to set an environment variable.
 
-    http://<HOST IP ADDR>:5800/?port=<VNC PORT>
+When enabled, application's GUI is performed over an HTTPs connection when
+accessed with a browser.  All HTTP accesses are automatically redirected to
+HTTPs.
 
-## VNC Password
+When using a VNC client, the VNC connection is performed over SSL.  Note that
+few VNC clients support this method.  [SSVNC] is one of them.
+
+### Certificates
+
+Here are the certificate files needed by the container.  By default, when they
+are missing, self-signed certificates are generated and used.  All files have
+PEM encoded, x509 certificates.
+
+| Container Path                  | Purpose                    | Content |
+|---------------------------------|----------------------------|---------|
+|`/config/certs/vnc-server.pem`   |VNC connection encryption.  |VNC server's private key and certificate, bundled with any root and intermediate certificates.|
+|`/config/certs/web-privkey.pem`  |HTTPs connection encryption.|Web server's private key.|
+|`/config/certs/web-fullchain.pem`|HTTPs connection encryption.|Web server's certificate, bundled with any root and intermediate certificates.|
+
+**NOTE**: To prevent any certificate validity warnings/errors from the browser
+or VNC client, make sure to supply your own valid certificates.
+
+**NOTE**: Certificate files are monitored and relevant daemons are automatically
+restarted when changes are detected.
+
+### VNC Password
 
 To restrict access to your application, a password can be specified.  This can
 be done via two methods:
   * By using the `VNC_PASSWORD` environment variable.
   * By creating a `.vncpass_clear` file at the root of the `/config` volume.
-  This file should contains the password (in clear).  During the container
-  startup, content of the file is obfuscated and renamed to `.vncpass`.
+    This file should contains the password in clear-text.  During the container
+    startup, content of the file is obfuscated and moved to `.vncpass`.
 
-**NOTE**: This is a very basic way to restrict access to the application and it
-should not be considered as secure in any way.
+The level of security provided by the VNC password depends on two things:
+  * The type of communication channel (encrypted/unencrypted).
+  * How secure access to the host is.
+
+When using a VNC password, it is highly desirable to enable the secure
+connection to prevent sending the password in clear over an unencrypted channel.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
