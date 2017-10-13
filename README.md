@@ -191,3 +191,10 @@ When using a VNC password, it is highly desirable to enable the secure
 connection to prevent sending the password in clear over an unencrypted channel.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+## Support or Contact
+
+Having troubles with the container or have questions?  Please
+[create a new issue].
+
+[open an issue]: https://github.com/jlesage/docker-jdownloader-2/issues
