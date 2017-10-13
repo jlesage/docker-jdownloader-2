@@ -197,4 +197,4 @@ connection to prevent sending the password in clear over an unencrypted channel.
 Having troubles with the container or have questions?  Please
 [create a new issue].
 
-[open an issue]: https://github.com/jlesage/docker-jdownloader-2/issues
+[create a new issue]: https://github.com/jlesage/docker-jdownloader-2/issues
