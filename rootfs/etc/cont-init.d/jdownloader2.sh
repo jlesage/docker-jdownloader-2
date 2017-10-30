@@ -7,9 +7,6 @@ if [ ! -f /config/JDownloader.jar ]; then
     cp -r /defaults/* /config/
 fi
 
-# First-time run indication.
-s6-setuidgid $USER_ID:$GROUP_ID touch /tmp/.jd_not_started_yet
-
 # Take ownership of the config directory.
 chown -R $USER_ID:$GROUP_ID /config
 
