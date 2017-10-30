@@ -33,7 +33,7 @@ start_jd() {
     /opt/jre/bin/java \
         -Dawt.useSystemAAFontSettings=gasp \
         -Djava.awt.headless=false \
-        -jar /config/JDownloader.jar &>/config/output.log &
+        -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
 }
 
 kill_jd() {
