@@ -34,6 +34,15 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.3.1</version>
+        <date>2017-11-07</date>
+        <change>Now using baseimage v3.1.2, which brings the following changes (from last used version):</change>
+        <change level="2">Fixed an issue where a self-disabled service could be restarted.</change>
+        <change level="2">Upgraded S6 overlay to version 1.21.2.0.</change>
+        <change level="2">Use a more efficient way to monitor status files.</change>
+        <change>Fixed and issue where container would not start when log directory is missing.</change>
+      </release>
+      <release>
         <version>1.3.0</version>
         <date>2017-10-29</date>
         <change>Now using baseimage v3.1.0, which brings the following changes:</change>
