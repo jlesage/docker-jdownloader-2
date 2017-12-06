@@ -21,7 +21,7 @@ your valuable time every day!
 
 Launch the JDownloader 2 docker container with the following command:
 ```
-docker run -d --rm \
+docker run -d \
     --name=jdownloader-2 \
     -p 5800:5800 \
     -p 5900:5900 \
@@ -40,7 +40,7 @@ the host appear under the `/storage` folder in the container.
 ## Usage
 
 ```
-docker run [-d] [--rm] \
+docker run [-d] \
     --name=jdownloader-2 \
     [-e <VARIABLE_NAME>=<VALUE>]... \
     [-v <HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]]... \
@@ -50,7 +50,6 @@ docker run [-d] [--rm] \
 | Parameter | Description |
 |-----------|-------------|
 | -d        | Run the container in background.  If not set, the container runs in foreground. |
-| --rm      | Automatically remove the container when it exits. |
 | -e        | Pass an environment variable to the container.  See the [Environment Variables](#environment-variables) section for more details. |
 | -v        | Set a volume mapping (allows to share a folder/file between the host and the container).  See the [Data Volumes](#data-volumes) section for more details. |
 | -p        | Set a network port mapping (exposes an internal container port to the host).  See the [Ports](#ports) section for more details. |
