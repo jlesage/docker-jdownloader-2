@@ -34,6 +34,12 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.3.3</version>
+        <date>2017-12-12</date>
+        <change>Now using baseimage v3.1.4, which brings the following changes:</change>
+        <change>Set 2 worker processes for nginx.</change>
+      </release>
+      <release>
         <version>1.3.2</version>
         <date>2017-11-20</date>
         <change>Now using baseimage v3.1.3, which brings the following changes:</change>
