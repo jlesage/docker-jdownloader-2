@@ -37,7 +37,7 @@ your valuable time every day!
         <version>1.3.3</version>
         <date>2017-12-12</date>
         <change>Now using baseimage v3.1.4, which brings the following changes:</change>
-        <change>Set 2 worker processes for nginx.</change>
+        <change level="2">Set 2 worker processes for nginx.</change>
       </release>
       <release>
         <version>1.3.2</version>
