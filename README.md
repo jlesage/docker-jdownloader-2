@@ -24,7 +24,6 @@ Launch the JDownloader 2 docker container with the following command:
 docker run -d \
     --name=jdownloader-2 \
     -p 5800:5800 \
-    -p 5900:5900 \
     -v /docker/appdata/jdownloader-2:/config:rw \
     -v $HOME/Downloads:/output:rw \
     jlesage/jdownloader-2
@@ -101,7 +100,11 @@ container cannot be changed, but you are free to use any port on the host side.
 
 ## Docker Compose File
 Here is an example of a `docker-compose.yml` file that can be used with
-[Docker Compose](https://docs.docker.com/compose/overview/):
+[Docker Compose](https://docs.docker.com/compose/overview/).
+
+Make sure to adjust according to your needs.  Note that only mandatory network
+ports are part of the example.
+
 ```yaml
 version: '3'
 services:
@@ -109,7 +112,6 @@ services:
     build: .
     ports:
       - "5800:5800"
-      - "5900:5900"
     volumes:
       - "/docker/appdata/jdownloader-2:/config:rw"
       - "$HOME/Downloads:/output:rw"
