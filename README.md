@@ -132,7 +132,7 @@ docker stop jdownloader-2
 ```
   3. Remove the container:
 ```
-docker stop jdownloader-2
+docker rm jdownloader-2
 ```
   4. Start the container using the `docker run` command.
 
