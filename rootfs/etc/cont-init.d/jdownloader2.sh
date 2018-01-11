@@ -14,8 +14,8 @@ if [ ! -f /config/JDownloader.jar ]; then
     cp -r /defaults/* /config/
 fi
 
-# Take ownership of the config directory.
-chown -R $USER_ID:$GROUP_ID /config
+# Take ownership of the config directory content.
+chown -R $USER_ID:$GROUP_ID /config/*
 
 # Take ownership of the output directory.
 if ! chown $USER_ID:$GROUP_ID /output; then
