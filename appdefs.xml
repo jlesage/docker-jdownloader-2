@@ -34,6 +34,15 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.3.4</version>
+        <date>2018-01-11</date>
+        <change>Now using baseimage v3.2.2, which brings the following changes (since last used version):</change>
+        <change level="2">Upgraded S6 overlay to version 1.21.2.2.</change>
+        <change level="2">Upgraded glibc to version 2.26 (Alpine Linux glibc images).</change>
+        <change level="2">Adjusted the way ownership of /config is taken to better support cases where the folder is mapped to a network share.</change>
+        <change>Small adjustment to the way ownership of files are taken.</change>
+      </release>
+      <release>
         <version>1.3.3</version>
         <date>2017-12-12</date>
         <change>Now using baseimage v3.1.4, which brings the following changes:</change>
