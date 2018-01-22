@@ -65,9 +65,6 @@ RUN \
     APP_ICON_URL=https://raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png && \
     install_app_icon.sh "$APP_ICON_URL"
 
-# Temporary fix for glibc cache not being updated automatically.
-RUN /usr/glibc-compat/sbin/ldconfig
-
 # Add files.
 COPY rootfs/ /
 
