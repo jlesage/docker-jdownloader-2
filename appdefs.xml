@@ -34,6 +34,11 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.4.1</version>
+        <date>2018-01-30</date>
+        <change>Adjusted the way some ressources are accessed to better support reverse proxy to the container.</change>
+      </release>
+      <release>
         <version>1.4.0</version>
         <date>2018-01-22</date>
         <change>Now using baseimage v3.3.0, which brings the following changes (since last used version):</change>
