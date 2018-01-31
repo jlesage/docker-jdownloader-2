@@ -237,6 +237,103 @@ characters beyhond the limit are ignored.
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
+## Reverse Proxy
+
+The following sections contains NGINX configuration that need to be added in
+order to reverse proxy to this container.
+
+A reverse proxy server can route HTTP requests based on the hostname or the URL
+path.
+
+### Routing Based on Hostname
+
+In this scenario, each hostname is routed to a different application/container.
+
+For example, let's say the reverse proxy server is running on the same machine
+as this container.  The server would proxy all HTTP requests sent to
+`jdownloader-2.domain.tld` to the container at `127.0.0.1:5800`.
+
+Here are the relevant configuration elements that would be added to the NGINX
+configuration:
+
+```
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	''      close;
+}
+
+upstream docker-jdownloader-2 {
+	# If the reverse proxy server is not running on the same machine as the
+	# Docker container, use the IP of the Docker host here.
+	# Make sure to adjust the port according to how port 5800 of the
+	# container has been mapped on the host.
+	server 127.0.0.1:5800;
+}
+
+server {
+	[...]
+
+	server_name jdownloader-2.domain.tld;
+
+	location / {
+	        proxy_pass http://docker-jdownloader-2;
+	}
+
+	location /websockify {
+		proxy_pass http://docker-jdownloader-2;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection $connection_upgrade;
+		proxy_read_timeout 86400;
+	}
+}
+
+```
+
+### Routing Based on URL Path
+
+In this scenario, the hostname is the same, but different URL paths are used to
+route to different applications/containers.
+
+For example, let's say the reverse proxy server is running on the same machine
+as this container.  The server would proxy all HTTP requests for
+`server.domain.tld/jdownloader-2` to the container at `127.0.0.1:5800`.
+
+Here are the relevant configuration elements that would be added to the NGINX
+configuration:
+
+```
+map $http_upgrade $connection_upgrade {
+	default upgrade;
+	''      close;
+}
+
+upstream docker-jdownloader-2 {
+	# If the reverse proxy server is not running on the same machine as the
+	# Docker container, use the IP of the Docker host here.
+	# Make sure to adjust the port according to how port 5800 of the
+	# container has been mapped on the host.
+	server 127.0.0.1:5800;
+}
+
+server {
+	[...]
+
+	location = /jdownloader-2 {return 301 $scheme://$http_host/jdownloader-2/;}
+	location /jdownloader-2/ {
+		proxy_pass http://docker-jdownloader-2/;
+		location /jdownloader-2/websockify {
+			proxy_pass http://docker-jdownloader-2/websockify/;
+			proxy_http_version 1.1;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection $connection_upgrade;
+			proxy_read_timeout 86400;
+		}
+	}
+}
+
+```
+
 ## Support or Contact
 
 Having troubles with the container or have questions?  Please
