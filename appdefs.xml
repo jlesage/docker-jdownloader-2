@@ -43,7 +43,8 @@ your valuable time every day!
       <release>
         <version>1.4.1</version>
         <date>2018-01-30</date>
-        <change>Adjusted the way some ressources are accessed to better support reverse proxy to the container.</change>
+        <change>Now using baseimage v3.3.1, which brings the following changes:</change>
+        <change level="2">Adjusted the way some ressources are accessed to better support reverse proxy to the container.</change>
       </release>
       <release>
         <version>1.4.0</version>
