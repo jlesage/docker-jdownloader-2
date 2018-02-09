@@ -26,6 +26,7 @@ your valuable time every day!
          * [Environment Variables](#environment-variables)
          * [Data Volumes](#data-volumes)
          * [Ports](#ports)
+         * [Changing Parameters of a Running Container](#changing-parameters-of-a-running-container)
       * [Docker Compose File](#docker-compose-file)
       * [Docker Image Update](#docker-image-update)
       * [User/Group IDs](#usergroup-ids)
@@ -122,6 +123,31 @@ container cannot be changed, but you are free to use any port on the host side.
 |------|-----------------|-------------|
 | 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
 | 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
+
+### Changing Parameters of a Running Container
+
+As seen, environment variables, volume mappings and port mappings are specified
+while creating the container.
+
+The following steps describe the method used to add, remove or update
+parameter(s) of an existing container.  The generic idea is to destroy and
+re-create the container:
+
+  1. Stop the container (if it is running):
+```
+docker stop jdownloader-2
+```
+  2. Remove the container:
+```
+docker rm jdownloader-2
+```
+  3. Create/start the container using the `docker run` command, by adjusting
+     parameters as needed.
+
+**NOTE**: Since all application's data is saved under the `/config` container
+folder, destroying and re-creating a container is not a problem: nothing is lost
+and the application comes back with the same state (as long as the mapping of
+the `/config` folder remains the same).
 
 ## Docker Compose File
 
