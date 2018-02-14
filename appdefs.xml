@@ -204,5 +204,7 @@ your valuable time every day!
     <ports/>
     <!-- Devices -->
     <devices/>
+    <!-- Extra parameters -->
+    <extra_params/>
   </container>
 </defs>
