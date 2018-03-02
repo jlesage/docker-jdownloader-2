@@ -34,6 +34,14 @@ your valuable time every day!
   <!-- Changelog of the application. -->
   <history>
       <release>
+        <version>1.4.3</version>
+        <date>2018-03-02</date>
+        <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>
+        <change level="2">Make sure the log monitor is started after the X server.</change>
+        <change level="2">Fixed an issue where the log monitor `yad` target would use XDG folders of the application.</change>
+        <change level="2">Fixed issue where log monitor states were not cleared during container startup.</change>
+      </release>
+      <release>
         <version>1.4.2</version>
         <date>2018-02-03</date>
         <change>Now using baseimage v3.3.2, which brings the following changes:</change>
