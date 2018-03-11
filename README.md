@@ -33,6 +33,7 @@ your valuable time every day!
       * [Accessing the GUI](#accessing-the-gui)
       * [Security](#security)
          * [Certificates](#certificates)
+         * [Shell Access](#shell-access)
          * [VNC Password](#vnc-password)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
@@ -261,6 +262,17 @@ or VNC client, make sure to supply your own valid certificates.
 
 **NOTE**: Certificate files are monitored and relevant daemons are automatically
 restarted when changes are detected.
+
+### Shell Access
+
+To get shell access to a the running container, execute the following command:
+
+```
+docker exec -ti CONTAINER sh
+```
+
+Where `CONTAINER` is the ID or the name of the container used during its
+creation (e.g. `crashplan-pro`).
 
 ### VNC Password
 
