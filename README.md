@@ -35,8 +35,8 @@ your valuable time every day!
       * [Accessing the GUI](#accessing-the-gui)
       * [Security](#security)
          * [Certificates](#certificates)
-         * [Shell Access](#shell-access)
          * [VNC Password](#vnc-password)
+      * [Shell Access](#shell-access)
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
@@ -291,17 +291,6 @@ or VNC client, make sure to supply your own valid certificates.
 **NOTE**: Certificate files are monitored and relevant daemons are automatically
 restarted when changes are detected.
 
-### Shell Access
-
-To get shell access to a the running container, execute the following command:
-
-```
-docker exec -ti CONTAINER sh
-```
-
-Where `CONTAINER` is the ID or the name of the container used during its
-creation (e.g. `crashplan-pro`).
-
 ### VNC Password
 
 To restrict access to your application, a password can be specified.  This can
@@ -322,6 +311,17 @@ connection to prevent sending the password in clear over an unencrypted channel.
 the Remote Framebuffer Protocol [RFC](https://tools.ietf.org/html/rfc6143) (see
 section [7.2.2](https://tools.ietf.org/html/rfc6143#section-7.2.2)).  Any
 characters beyhond the limit are ignored.
+
+## Shell Access
+
+To get shell access to a the running container, execute the following command:
+
+```
+docker exec -ti CONTAINER sh
+```
+
+Where `CONTAINER` is the ID or the name of the container used during its
+creation (e.g. `crashplan-pro`).
 
 ## Reverse Proxy
 
