@@ -61,8 +61,7 @@ Where:
   - `/docker/appdata/jdownloader-2`: This is where the application stores its configuration, log and any files needing persistency.
   - `$HOME/Downloads`: This is where downloaded files are stored.
 
-Browse to `http://your-host-ip:5800` to access the JDownloader 2 GUI.  Files from
-the host appear under the `/storage` folder in the container.
+Browse to `http://your-host-ip:5800` to access the JDownloader 2 GUI.
 
 ## Usage
 
