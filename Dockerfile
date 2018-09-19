@@ -31,7 +31,8 @@ WORKDIR /tmp
 # Download JDownloader 2.
 RUN \
     mkdir -p /defaults && \
-    wget ${JDOWNLOADER_URL} -O /defaults/JDownloader.jar
+    wget ${JDOWNLOADER_URL} -O /defaults/JDownloader.jar && \
+    chmod +x /defaults/JDownloader.jar
 
 # Download and install Oracle JRE.
 # NOTE: This is needed only for the 7-Zip-JBinding workaround.
