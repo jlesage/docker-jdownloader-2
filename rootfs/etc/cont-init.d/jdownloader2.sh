@@ -11,7 +11,8 @@ log() {
 mkdir -p /config/logs
 
 if [ ! -f /config/JDownloader.jar ]; then
-    cp -r /defaults/* /config/
+    cp /defaults/JDownloader.jar /config
+    cp -r /defaults/cfg /config/
 fi
 
 # Take ownership of the config directory content.
