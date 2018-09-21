@@ -51,7 +51,11 @@ RUN \
         # workaround.
         #openjdk8-jre \
         libstdc++ \
-        ttf-dejavu
+        ttf-dejavu \
+        # For ffmpeg and ffprobe tools.
+        ffmpeg \
+        # For rtmpdump tool.
+        rtmpdump
 
 # Maximize only the main/initial window.
 RUN \
