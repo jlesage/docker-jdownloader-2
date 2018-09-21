@@ -5,34 +5,34 @@ This file is used as data source to generate README.md and unRAID template files
 from Jinja2 templates.
 -->
 <defs>
-<app>
-  <id>7</id>
-  <gui>True</gui>
-  <friendly_name>JDownloader 2</friendly_name>
-  <name>{{ defs.app.friendly_name|lower|replace(' ', '-') }}</name>
-  <project>
-    <description>
+  <app>
+    <id>7</id>
+    <gui>True</gui>
+    <friendly_name>JDownloader 2</friendly_name>
+    <name>{{ defs.app.friendly_name|lower|replace(' ', '-') }}</name>
+    <project>
+      <description>
 JDownloader 2 is a free, open-source download management tool with a huge
 community of developers that makes downloading as easy and fast as it should be.
 Users can start, stop or pause downloads, set bandwith limitations, auto-extract
 archives and much more. It's an easy-to-extend framework that can save hours of
 your valuable time every day!
-    </description>
-    <url>http://jdownloader.org/</url>
-  </project>
-  <unraid>
-    <support_url>https://forums.unraid.net/topic/58552-support-jdownloader-2/</support_url>
-    <category>Downloaders:</category>
-  </unraid>
-  <container>
-    <rough_download_size>100MB</rough_download_size>
-    <unsupported_volume>/storage</unsupported_volume>
-  </container>
-  <!-- Extra stuff to be added to the documentation. -->
-  <documentation>
-  </documentation>
-  <!-- Changelog of the application. -->
-  <history>
+      </description>
+      <url>http://jdownloader.org/</url>
+    </project>
+    <unraid>
+      <support_url>https://forums.unraid.net/topic/58552-support-jdownloader-2/</support_url>
+      <category>Downloaders:</category>
+    </unraid>
+    <container>
+      <rough_download_size>100MB</rough_download_size>
+      <unsupported_volume>/storage</unsupported_volume>
+    </container>
+    <!-- Extra stuff to be added to the documentation. -->
+    <documentation>
+    </documentation>
+    <!-- Changelog of the application. -->
+    <history>
       <release>
         <version>1.4.3</version>
         <date>2018-03-02</date>
@@ -174,20 +174,20 @@ your valuable time every day!
         <change level="2">Various internal enhancements.</change>
         <change level="2">Fixed the way a service waits for another one.</change>
       </release>
-    <release>
-      <version>1.0.1</version>
-      <date>2017-07-07</date>
-      <change>Fixed the auto archive extractor.</change>
-      <change>Allow more time to JDownloader to gracefully shutdown.</change>
-      <change>Improved handling/monitoring of JDownloader process.</change>
-    </release>
-    <release>
-      <version>1.0.0</version>
-      <date>2017-07-05</date>
-      <change>Initial release.</change>
-    </release>
-  </history>
-</app>
+      <release>
+        <version>1.0.1</version>
+        <date>2017-07-07</date>
+        <change>Fixed the auto archive extractor.</change>
+        <change>Allow more time to JDownloader to gracefully shutdown.</change>
+        <change>Improved handling/monitoring of JDownloader process.</change>
+      </release>
+      <release>
+        <version>1.0.0</version>
+        <date>2017-07-05</date>
+        <change>Initial release.</change>
+      </release>
+    </history>
+  </app>
   <container>
     <!-- Environment variables -->
     <environment_variables/>
