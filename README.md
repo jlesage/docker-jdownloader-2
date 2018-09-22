@@ -40,6 +40,9 @@ your valuable time every day!
       * [Reverse Proxy](#reverse-proxy)
          * [Routing Based on Hostname](#routing-based-on-hostname)
          * [Routing Based on URL Path](#routing-based-on-url-path)
+      * [MyJDownloader](#myjdownloader)
+         * [Direct Connection](#direct-connection)
+      * [Click'n'Load](#clicknload)
       * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -125,6 +128,7 @@ container cannot be changed, but you are free to use any port on the host side.
 |------|-----------------|-------------|
 | 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
 | 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
+| 3129 | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance.  Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
 
 ### Changing Parameters of a Running Container
 
@@ -420,6 +424,48 @@ server {
 }
 
 ```
+
+## MyJDownloader
+
+[MyJDownloader](https://my.jdownloader.org) is an online service providing
+remote access to your JDownloader with Web Interface, Android App, iPhone App,
+Windows Phone App and Browser Extensions.  It allows to check download status,
+add links and solve captchas from everywhere.
+
+To activate, open the JDownloader UI and click the *My.JDownloader* tab.
+
+### Direct Connection
+
+When using MyJDownloader from a device on the same local network as the
+JDownloader Docker container instance, *Direct Connection* mode can be enabled
+to reduce the latency and increase the bandwidth.  With this mode, instead of
+going through the cloud, the communication is done through a direct connection
+between the device and JDownloader.
+
+The default container's network being in *bridge* mode, the *Direct Connection*
+mode is not automatically detected/activated and the following steps are required:
+
+  * Make sure the container's port `3129` is mapped to the host port `3129`.
+    This is done by adding the parameter `-p 3129:3129` to the `docker run`
+    command.
+  * Open the JDownloader UI.
+  * Go to *Settings*->*Advanced Settings*.
+  * Search for `MyJDownloaderSettings`.
+  * Set `Custom Device IPs` to the IP address of the host running the container,
+    between double quotes (e.g. `"192.168.1.1"`).
+  * Change the `Direct Connection Mode` to `Allow lan/wan connections with
+    manual port forwarding`.
+  * Restart JDownloader (*File*->*Restart*).
+
+## Click'n'Load
+
+The easiest way to use the [Click'n'Load] feature is by installing the
+[MyJDownloader browser extension].  With this method, the browser extension
+handles POST requests to `http://127.0.0.1:9666` and forward the links to
+JDownloader via the *MyJDownloader* service.
+
+[Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
+[MyJDownloader browser extension]: https://my.jdownloader.org/apps/
 
 [TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
