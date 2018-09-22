@@ -78,6 +78,10 @@ ENV APP_NAME="JDownloader 2" \
 VOLUME ["/config"]
 VOLUME ["/output"]
 
+# Expose ports.
+#   - 3129: For MyJDownloader in Direct Connection mode.
+EXPOSE 3129
+
 # Metadata.
 LABEL \
       org.label-schema.name="jdownloader-2" \
