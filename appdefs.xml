@@ -82,6 +82,19 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.0</version>
+        <date>2018-09-21</date>
+        <change>Now using baseimage v3.5.1, which brings the following changes (since last used version):</change>
+        <change level="2">Image based on Alpine Linux 3.8.</change>
+        <change level="2">Upgraded s6-overlay to version 1.21.4.0.</change>
+        <change level="2">Wait for a limited time when terminating a service.</change>
+        <change level="2">Set and create the XDG_RUNTIME_DIR directory.</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+        <change>Upgraded Java JRE to version 8u181.</change>
+        <change>Install `ffmpeg`, `ffprobe` and `rtmpdump` to allow JDownloader to use them.</change>
+        <change>Fixed an issue where JDownloader would not work on a filesystem without execution permission.</change>
+      </release>
+      <release>
         <version>1.4.3</version>
         <date>2018-03-02</date>
         <change>Now using baseimage v3.3.4, which brings the following changes (since last used version):</change>
