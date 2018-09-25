@@ -82,6 +82,11 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.1</version>
+        <date>2018-09-25</date>
+        <change>Fixed issue where opening/processing captcha would crash JDownloader.</change>
+      </release>
+      <release>
         <version>1.5.0</version>
         <date>2018-09-21</date>
         <change>Now using baseimage v3.5.1, which brings the following changes (since last used version):</change>
