@@ -34,6 +34,7 @@ your valuable time every day!
       * [User/Group IDs](#usergroup-ids)
       * [Accessing the GUI](#accessing-the-gui)
       * [Security](#security)
+         * [SSVNC](#ssvnc)
          * [Certificates](#certificates)
          * [VNC Password](#vnc-password)
       * [Reverse Proxy](#reverse-proxy)
@@ -277,6 +278,25 @@ When using a VNC client, the VNC connection is performed over SSL.  Note that
 few VNC clients support this method.  [SSVNC] is one of them.
 
 [SSVNC]: http://www.karlrunge.com/x11vnc/ssvnc.html
+
+### SSVNC
+
+[SSVNC] is a VNC viewer that adds encryption security to VNC connections.
+
+While the Linux version of [SSVNC] works well, the Windows version has some
+issues.  At the time of writing, the latest version `1.0.30` is not functional,
+as a connection fails with the following error:
+```
+ReadExact: Socket error while reading
+```
+However, for your convienence, an unoffical and working version is provided
+here:
+
+https://github.com/jlesage/docker-baseimage-gui/raw/master/tools/ssvnc_windows_only-1.0.30-r1.zip
+
+The only difference with the offical package is that the bundled version of
+`stunnel` has been upgraded to version `5.49`, which fixes the connection
+problems.
 
 ### Certificates
 
