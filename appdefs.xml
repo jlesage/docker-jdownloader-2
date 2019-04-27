@@ -82,6 +82,16 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.5.2</version>
+        <date>2019-04-27</date>
+        <change>Now using Java JRE from Amazon instead of Oracle.</change>
+        <change>Now using baseimage v3.5.2, which brings the following changes:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+        <change level="2">Fixed issue where the container could have a zombie process.</change>
+        <change level="2">Fixed issue where the password would not be submitted when pressing the enter key in the password modal.</change>
+        <change level="2">Use relative path for favicon ressources to be more friendly with reverse proxy senarios.</change>
+      </release>
+      <release>
         <version>1.5.1</version>
         <date>2018-09-25</date>
         <change>Fixed issue where opening/processing captcha would crash JDownloader.</change>
