@@ -21,9 +21,12 @@
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
 FROM jlesage/baseimage-gui:alpine-3.9-glibc-v3.5.2
 
+# Define software versions.
+ARG JAVAJRE_VERSION=8.212.04.2
+
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
-ARG ORACLEJAVAJRE_URL=http://download.oracle.com/otn-pub/java/jdk/8u192-b12/750e1c8617c5452694857ad95c3ee230/server-jre-8u192-linux-x64.tar.gz
+ARG JAVAJRE_URL=https://d3pxv6yz143wms.cloudfront.net/${JAVAJRE_VERSION}/amazon-corretto-${JAVAJRE_VERSION}-linux-x64.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
@@ -38,8 +41,7 @@ RUN \
 RUN \
     add-pkg --virtual build-dependencies curl && \
     mkdir /opt/jre && \
-    curl -# -L -H "Cookie: oraclelicense=accept-securebackup-cookie" ${ORACLEJAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre jdk1.8.0_192/jre && \
-    rm -r /opt/jre/lib/oblique-fonts && \
+    curl -# -L ${JAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre amazon-corretto-${JAVAJRE_VERSION}-linux-x64/jre && \
     del-pkg build-dependencies
 
 # Install dependencies.
