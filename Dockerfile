@@ -17,6 +17,8 @@
 #     - Use Oracle JRE, to have a glibc-based Java VM.
 # ##############################################################################
 
+ARG DOCKER_IMAGE_VERSION=unknown
+
 # Pull base image.
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
 FROM jlesage/baseimage-gui:alpine-3.9-glibc-v3.5.2
@@ -88,6 +90,6 @@ EXPOSE 3129
 LABEL \
       org.label-schema.name="jdownloader-2" \
       org.label-schema.description="Docker container for JDownloader 2" \
-      org.label-schema.version="unknown" \
+      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-jdownloader-2" \
       org.label-schema.schema-version="1.0"
