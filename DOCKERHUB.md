@@ -1,5 +1,5 @@
 # Docker container for JDownloader 2
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/jdownloader-2)](http://microbadger.com/#/images/jlesage/jdownloader-2) [![Build Status](https://travis-ci.org/jlesage/docker-jdownloader-2.svg?branch=master)](https://travis-ci.org/jlesage/docker-jdownloader-2) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg)](https://github.com/jlesage/docker-jdownloader-2/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Docker Image Size](https://img.shields.io/microbadger/image-size/jlesage/jdownloader-2)](http://microbadger.com/#/images/jlesage/jdownloader-2) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-jdownloader-2/status.svg)](https://drone.le-sage.com/jlesage/docker-jdownloader-2) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg)](https://github.com/jlesage/docker-jdownloader-2/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
 
 This is a Docker container for [JDownloader 2](http://jdownloader.org/).
 
