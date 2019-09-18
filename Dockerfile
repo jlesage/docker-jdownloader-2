@@ -17,11 +17,12 @@
 #     - Use Oracle JRE, to have a glibc-based Java VM.
 # ##############################################################################
 
-ARG DOCKER_IMAGE_VERSION=unknown
-
 # Pull base image.
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
 FROM jlesage/baseimage-gui:alpine-3.9-glibc-v3.5.2
+
+# Docker image version is provided via build arg.
+ARG DOCKER_IMAGE_VERSION=unknown
 
 # Define software versions.
 ARG JAVAJRE_VERSION=8.212.04.2
