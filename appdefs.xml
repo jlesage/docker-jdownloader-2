@@ -82,6 +82,11 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.6.0</version>
+        <date>2020-04-25</date>
+        <change>Added the ability to install extra packages to the container image.</change>
+      </release>
+      <release>
         <version>1.5.2</version>
         <date>2019-04-27</date>
         <change>Now using Java JRE from Amazon instead of Oracle.</change>
