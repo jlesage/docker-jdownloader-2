@@ -3,7 +3,7 @@
 
 This is a Docker container for [JDownloader 2](http://jdownloader.org/).
 
-The GUI of the application is accessed through a modern web browser (no installation or configuration needed on client side) or via any VNC client.
+The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
