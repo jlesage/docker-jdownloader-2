@@ -241,7 +241,7 @@ For unRAID, a container image can be updated by following these steps:
 
 When using data volumes (`-v` flags), permissions issues can occur between the
 host and the container.  For example, the user within the container may not
-exists on the host.  This could prevent the host from properly accessing files
+exist on the host.  This could prevent the host from properly accessing files
 and folders on the shared volume.
 
 To avoid any problem, you can specify the user the application should run as.
