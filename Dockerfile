@@ -6,7 +6,7 @@
 
 # Pull base image.
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
-FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
+FROM jlesage/baseimage-gui:alpine-3.12-v3.5.6
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
