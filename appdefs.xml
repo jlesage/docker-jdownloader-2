@@ -82,6 +82,17 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.7.0</version>
+        <date>2021-03-12</date>
+        <change>Removed usage of glibc: 7ZipJBindings now works under Alpine Linux and proper support as been added to JDownloader.</change>
+        <change>Updated baseimage to version 3.5.6, which brings the following changes:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+        <change level="2">Make sure the tzdata is installed.</change>
+        <change level="2">Upgraded glibc to version 2.31 on Alpine Linux images with glibc integrated.</change>
+        <change level="2">Adjusted the log monitor target for recent versions of YAD.</change>
+        <change>Now using baseimage based on Alpine 3.12.</change>
+      </release>
+      <release>
         <version>1.6.0</version>
         <date>2020-04-25</date>
         <change>Added the ability to install extra packages to the container image.</change>
