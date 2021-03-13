@@ -3,58 +3,36 @@
 #
 # https://github.com/jlesage/docker-jdownloader-2
 #
-# ##############################################################################
-# 7-Zip-JBinding Workaround
-#
-# JDownloader works well with the native openjdk8-jre package.  There is one
-# exception: the auto archive extractor.  This feature uses 7-Zip-JBinding,
-# which provides a platform-specific library (.so).  The one for Linux x86_64
-# has been compiled against glibc and this is not loading correctly on Alpine.
-#
-# To work around this issue (until we get a proper support of 7-Zip-JBinding on
-# Alpine), we need to:
-#     - Get glibc, by using the glibc version of the baseimage.
-#     - Use Oracle JRE, to have a glibc-based Java VM.
-# ##############################################################################
 
 # Pull base image.
 # NOTE: glibc version of the image is needed for the 7-Zip-JBinding workaround.
-FROM jlesage/baseimage-gui:alpine-3.9-glibc-v3.5.2
+FROM jlesage/baseimage-gui:alpine-3.9-v3.5.2
 
 # Docker image version is provided via build arg.
 ARG DOCKER_IMAGE_VERSION=unknown
 
-# Define software versions.
-ARG JAVAJRE_VERSION=8.212.04.2
-
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
-ARG JAVAJRE_URL=https://d3pxv6yz143wms.cloudfront.net/${JAVAJRE_VERSION}/amazon-corretto-${JAVAJRE_VERSION}-linux-x64.tar.gz
 
 # Define working directory.
 WORKDIR /tmp
 
 # Download JDownloader 2.
 RUN \
+    add-pkg --virtual build-dependencies \
+        curl \
+        && \
     mkdir -p /defaults && \
-    wget ${JDOWNLOADER_URL} -O /defaults/JDownloader.jar
-
-# Download and install Oracle JRE.
-# NOTE: This is needed only for the 7-Zip-JBinding workaround.
-RUN \
-    add-pkg --virtual build-dependencies curl && \
-    mkdir /opt/jre && \
-    curl -# -L ${JAVAJRE_URL} | tar -xz --strip 2 -C /opt/jre amazon-corretto-${JAVAJRE_VERSION}-linux-x64/jre && \
-    del-pkg build-dependencies
+    # Download.
+    curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL} && \
+    # Cleanup.
+    del-pkg build-dependencies && \
+    rm -rf /tmp/* /tmp/.[!.]*
 
 # Install dependencies.
 RUN \
     add-pkg \
-        # For the 7-Zip-JBinding workaround, Oracle JRE is needed instead of
-        # the Alpine Linux's openjdk native package.
-        # The libstdc++ package is also needed as part of the 7-Zip-JBinding
-        # workaround.
-        #openjdk8-jre \
+        openjdk8-jre \
         libstdc++ \
         ttf-dejavu \
         # For ffmpeg and ffprobe tools.
