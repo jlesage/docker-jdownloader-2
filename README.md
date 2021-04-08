@@ -170,7 +170,6 @@ version: '3'
 services:
   jdownloader-2:
     image: jlesage/jdownloader-2
-    build: .
     ports:
       - "5800:5800"
     volumes:
