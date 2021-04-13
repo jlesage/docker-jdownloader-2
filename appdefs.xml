@@ -82,6 +82,12 @@ JDownloader via the *MyJDownloader* service.
     <!-- Changelog of the application. -->
     <history>
       <release>
+        <version>1.7.1</version>
+        <date>2021-04-13</date>
+        <change>Now using baseimage version 3.5.7, which brings the following change:</change>
+        <change level="2">Updated installed packages to get latest security fixes.</change>
+      </release>
+      <release>
         <version>1.7.0</version>
         <date>2021-03-12</date>
         <change>Removed usage of glibc: 7ZipJBindings now works under Alpine Linux and proper support as been added to JDownloader.</change>
