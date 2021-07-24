@@ -73,7 +73,11 @@ if ! chown $USER_ID:$GROUP_ID /output; then
     # Failed to take ownership of /output.  This could happen when,
     # for example, the folder is mapped to a network share.
     # Continue if we have write permission, else fail.
-    if s6-setuidgid $USER_ID:$GROUP_ID [ ! -w /output ]; then
+    TMPFILE="$(s6-setuidgid $USER_ID:$GROUP_ID mktemp /output/.test_XXXXXX 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+        # Success, we were able to write file.
+        rm "$TMPFILE"
+    else
         log "ERROR: Failed to take ownership and no write permission on /output."
         exit 1
     fi
