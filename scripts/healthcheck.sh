@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/with-contenv sh
 
 #Network check
 # Ping uses both exit codes 1 and 2. Exit code 2 cannot be used for docker health checks,

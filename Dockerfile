@@ -64,9 +64,11 @@ VOLUME ["/output"]
 #   - 3129: For MyJDownloader in Direct Connection mode.
 EXPOSE 3129
 
+#ARG FUUUU
 #Add Autoheal
 HEALTHCHECK --interval=1m CMD /etc/scripts/healthcheck.sh
 ADD scripts /etc/scripts/
+RUN chmod +x -R /etc/scripts/
 # Compatability with https://hub.docker.com/r/willfarrell/autoheal/
 LABEL autoheal=true
 
