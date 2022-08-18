@@ -131,6 +131,7 @@ container cannot be changed, but you are free to use any port on the host side.
 | 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
 | 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
 | 3129 | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance.  Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
+| 9666 | Optional | Port used by [Click'n'Load](https://github.com/jlesage/docker-jdownloader-2#clicknload) MyJDownloader service.
 
 ### Changing Parameters of a Running Container
 
@@ -171,7 +172,10 @@ services:
   jdownloader-2:
     image: jlesage/jdownloader-2
     ports:
-      - "5800:5800"
+      - "5800:5800"  # WebGUI
+#      - "5900:5900"  # VNC
+#      - "3129:3129"  # Direct Connection
+#      - "9666:9666"  # Click'n'Load
     volumes:
       - "/docker/appdata/jdownloader-2:/config:rw"
       - "$HOME/Downloads:/output:rw"
