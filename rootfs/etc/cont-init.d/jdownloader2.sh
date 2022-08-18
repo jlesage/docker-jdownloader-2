@@ -76,7 +76,7 @@ if ! chown $USER_ID:$GROUP_ID /output; then
     TMPFILE="$(s6-setuidgid $USER_ID:$GROUP_ID mktemp /output/.test_XXXXXX 2>/dev/null)"
     if [ $? -eq 0 ]; then
         # Success, we were able to write file.
-        rm "$TMPFILE"
+        s6-setuidgid $USER_ID:$GROUP_ID rm "$TMPFILE"
     else
         log "ERROR: Failed to take ownership and no write permission on /output."
         exit 1
