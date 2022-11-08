@@ -294,6 +294,22 @@ container:
         display: advanced
         required: false
         mask: false
+    - name: JDOWNLOADER_HEADLESS
+      description: >-
+        When set to `1`, JDownloader is running in headless mode, meaning that
+        no GUI is available.  In this mode, MyJDownloader should be used to
+        remote control JDownloader.
+      type: public
+      default: 0
+      unraid_template:
+        title: Headless Mode
+        description: >-
+          When set to "1", JDownloader is running in headless mode, meaning that
+          no GUI is available.  In this mode, MyJDownloader should be used to
+          remote control JDownloader.
+        display: advanced
+        required: false
+        mask: false
 
   # Volumes
   volumes:

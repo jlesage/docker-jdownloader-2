@@ -115,6 +115,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`MYJDOWNLOADER_EMAIL`| Email address of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (unset) |
 |`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (unset) |
 |`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance.  Note that this can also be configured via the JDownloader GUI. | (unset) |
+|`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available.  In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
 
 ### Data Volumes
 

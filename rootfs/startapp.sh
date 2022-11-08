@@ -34,11 +34,18 @@ is_jd_running() {
 }
 
 start_jd() {
-    /usr/bin/java \
-        -XX:-UsePerfData \
-        -Dawt.useSystemAAFontSettings=gasp \
-        -Djava.awt.headless=false \
-        -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+    if [ "${JDOWNLOADER_HEADLESS:-0}" -eq 1 ]; then
+        /usr/bin/java \
+            -XX:-UsePerfData \
+            -Djava.awt.headless=true \
+            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+    else
+        /usr/bin/java \
+            -XX:-UsePerfData \
+            -Dawt.useSystemAAFontSettings=gasp \
+            -Djava.awt.headless=false \
+            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+    fi
 }
 
 kill_jd() {
