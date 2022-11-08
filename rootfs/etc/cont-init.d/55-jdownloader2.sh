@@ -20,6 +20,21 @@ if [ -f /config/JDownloader.jar ]; then
     mv "$TMP" /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.lastframestatus.json
 fi
 
+# Set MyJDownloader credentials.
+if [ -n "${MYJDOWNLOADER_EMAIL:-}" ] && [ -n "${MYJDOWNLOADER_PASSWORD:-}" ]
+then
+    TMP="$(mktemp)"
+    jq -c -M ".email=\"$MYJDOWNLOADER_EMAIL\" | .password = \"$(echo "$MYJDOWNLOADER_PASSWORD" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json > "$TMP"
+    mv "$TMP" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
+fi
+
+# Set the MyKDownloader device name.
+if [ -n "${MYJDOWNLOADER_DEVICE_NAME:-}" ]; then
+    TMP="$(mktemp)"
+    jq -c -M ".devicename = \"$(echo "$MYJDOWNLOADER_DEVICE_NAME" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json > "$TMP"
+    mv "$TMP" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
+fi
+
 # Handle dark mode change.
 if [ "${DARK_MODE:-0}" -eq 0 ]; then
     # Dark mode disabled.  Change theme only if it is currently set to our dark mode.

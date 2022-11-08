@@ -5,6 +5,11 @@ set -u # Treat unset variables as an error.
 trap "exit" TERM QUIT INT
 trap "kill_jd" EXIT
 
+# JDownloader logs all environment variables.  Make sure to MyJDownloader
+# credentials don't leak.
+unset MYJDOWNLOADER_EMAIL
+unset MYJDOWNLOADER_PASSWORD
+
 log_debug() {
     if [ "${CONTAINER_DEBUG:-0}" -eq 1 ]; then
         echo "$@"
