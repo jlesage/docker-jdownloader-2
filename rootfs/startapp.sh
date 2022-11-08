@@ -5,60 +5,75 @@ set -u # Treat unset variables as an error.
 trap "exit" TERM QUIT INT
 trap "kill_jd" EXIT
 
-log() {
-    echo "[jdsupervisor] $*"
+log_debug() {
+    if [ "${CONTAINER_DEBUG:-0}" -eq 1 ]; then
+        echo "$@"
+    fi
 }
 
-getpid_jd() {
+get_jd_pid() {
     PID=UNSET
-    if [ -f /config/JDownloader.pid ]; then
-        PID="$(cat /config/JDownloader.pid)"
-        # Make sure the saved PID is still running and is associated to
-        # JDownloader.
-        if [ ! -f /proc/$PID/cmdline ] || ! cat /proc/$PID/cmdline | grep -qw "JDownloader.jar"; then
-            PID=UNSET
+    if [ -f /config/JD2.lock ]; then
+        FUSER_STR="$(fuser /config/JD2.lock 2>/dev/null)"
+        if [ $? -eq 0 ]; then
+            echo "$FUSER_STR" | awk '{print $1}'
+            return
         fi
     fi
-    if [ "$PID" = "UNSET" ]; then
-        PID="$(ps -o pid,args | grep -w "JDownloader.jar" | grep -vw grep | tr -s ' ' | cut -d' ' -f2)"
-    fi
-    echo "${PID:-UNSET}"
+
+    echo "UNSET"
 }
 
 is_jd_running() {
-    [ "$(getpid_jd)" != "UNSET" ]
+    [ "$(get_jd_pid)" != "UNSET" ]
 }
 
 start_jd() {
     /usr/bin/java \
+        -XX:-UsePerfData \
         -Dawt.useSystemAAFontSettings=gasp \
         -Djava.awt.headless=false \
         -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
 }
 
 kill_jd() {
-    PID="$(getpid_jd)"
+    PID="$(get_jd_pid)"
     if [ "$PID" != "UNSET" ]; then
-        log "Terminating JDownloader2..."
+        log_debug "terminating JDownloader2..."
         kill $PID
         wait $PID
+        exit $?
     fi
 }
 
-if ! is_jd_running; then
-    log "JDownloader2 not started yet.  Proceeding..."
-    start_jd
-fi
+# Start JDownloader.
+log_debug "starting JDownloader2..."
+start_jd
 
-JD_NOT_RUNNING=0
-while [ "$JD_NOT_RUNNING" -lt 5 ]
+# Wait until it dies.
+wait $!
+
+TIMEOUT=5
+
+while true
 do
     if is_jd_running; then
-        JD_NOT_RUNNING=0
+        if [ "$TIMEOUT" -lt 5 ]; then
+            log_debug "JDownloader2 has restarted."
+        fi
+
+        # Reset the timeout.
+        TIMEOUT=5
     else
-        JD_NOT_RUNNING="$(expr $JD_NOT_RUNNING + 1)"
+        if [ "$TIMEOUT" -eq 5 ]; then
+            log_debug "JDownloader2 exited, checking if it is restarting..."
+        fi
+
+        TIMEOUT="$(expr $TIMEOUT - 1)"
+        if [ "$TIMEOUT" -eq 0 ]; then
+            log_debug "JDownloader2 not restarting, exiting..."
+            break
+        fi
     fi
     sleep 1
 done
-
-log "JDownloader2 no longer running.  Exiting..."
