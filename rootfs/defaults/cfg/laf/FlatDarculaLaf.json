@@ -1,0 +1,22 @@
+{
+  "colorforconfigpaneldescriptiontext" : "#fff8f8f2",
+  "configlabelenabledtextcolor" : "#fff8f8f2",
+  "colorfortableselectedrowsforeground" : "#fff8f8f2",
+  "colorfortablepackagerowforeground" : "#fff8f8f2",
+  "colorforconfigheadertextcolor" : "#fff8f8f2",
+  "colorfortablemouseoverrowbackground" : "#ff44475a",
+  "colorfortablepackagerowbackground" : "#ff2d2e3a",
+  "colorfortableselectedrowsbackground" : "#ff44475a",
+  "colorforerrorforeground" : "#ffff5555",
+  "colorforlinkgrabberdupehighlighter" : "#33ff5555",
+  "colorfortablemouseoverrowforeground" : "#fff8f8f2",
+  "colorfortablefilteredview" : "#ff50fa7b",
+  "colorfortooltipforeground" : "#fff8f8f2",
+  "colorfortableaccounterrorrowbackground" : "#7fff5555",
+  "colorforpanelbackground" : "#ff282a36",
+  "colorfortablealternaterowforeground" : "#fff8f8f2",
+  "colorforspeedmeterlimitertop" : "#ccff5555",
+  "colorfortablealternaterowbackground" : "#ff282a36",
+  "colorfortablesortedcolumnview" : "#ffffb68c",
+  "colorforpanelheaderbackground" : "#ff282a36"
+}
