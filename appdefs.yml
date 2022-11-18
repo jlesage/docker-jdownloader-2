@@ -68,6 +68,17 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 22.11.1
+      date: 2022-11-18
+      changes:
+        - 'Added the ability to set MyJDownloader credentials via environment variables.'
+        - 'Added the ability to run JDownloader in headless mode.'
+        - 'Versioning scheme of the Docker image changed to `YY.MM.SEQUENCE`.'
+        - 'Update of the baseimage to version 4.1.5 brings the following new features:'
+        - '2:Multi-arch image support.'
+        - '2:Support for dark mode.'
+        - '2:Support for remote window resize.'
+        - '2:Updated the web UI with a new, simplified and less intrusive look.'
     - version: 1.7.2
       date: 2022-08-18
       changes:
