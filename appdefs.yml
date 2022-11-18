@@ -68,10 +68,6 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
-    - version: 22.11.1
-      date: 2022-11-08
-      changes:
-        - 'Now using the open source version of JDownloader 2.'
     - version: 1.7.2
       date: 2022-08-18
       changes:
