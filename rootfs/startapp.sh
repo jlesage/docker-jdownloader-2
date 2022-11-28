@@ -65,7 +65,7 @@ start_jd
 # Wait until it dies.
 wait $!
 
-TIMEOUT=5
+TIMEOUT=1000
 
 while true
 do
