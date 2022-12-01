@@ -68,6 +68,12 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 22.11.2
+      date: 2022-11-30
+      changes:
+        - 'Allow more time to JDownloader to restart itself.'
+        - 'Fixed issue where permissions of `/tmp` were incorrect on some systems.'
+        - 'Updated baseimage to version `4.2.0`, which brings multiple internal enhancements.'
     - version: 22.11.1
       date: 2022-11-18
       changes:
