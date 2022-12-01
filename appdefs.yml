@@ -68,6 +68,10 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 22.12.1
+      date: 2022-12-01
+      changes:
+        - 'Fixed issue where taking ownership of `/output` could fail during startup.'
     - version: 22.11.2
       date: 2022-11-30
       changes:
