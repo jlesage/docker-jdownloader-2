@@ -68,6 +68,10 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 22.12.2
+      date: 2022-12-11
+      changes:
+        - 'Implemented workaround for issue seen with Synology devices where container would not start after an image update.  The problem is caused by Synology explicitly setting all environment variables and keeping values from the old version.'
     - version: 22.12.1
       date: 2022-12-01
       changes:
