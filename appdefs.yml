@@ -287,7 +287,6 @@ container:
         Email address of the MyJDownloader account to use.  Note that this can
         also be configured via the JDownloader GUI.
       type: public
-      default:
       unraid_template:
         title: MyJDownloader Email
         display: advanced
@@ -298,7 +297,6 @@ container:
         Password of the MyJDownloader account to use.  Note that this can
         also be configured via the JDownloader GUI.
       type: public
-      default:
       unraid_template:
         title: MyJDownloader Password
         display: advanced
@@ -309,7 +307,6 @@ container:
         The name of this JDownloader instance.  Note that this can
         also be configured via the JDownloader GUI.
       type: public
-      default:
       unraid_template:
         title: MyJDownloader Device Name
         display: advanced
