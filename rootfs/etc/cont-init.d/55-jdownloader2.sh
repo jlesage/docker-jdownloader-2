@@ -20,7 +20,7 @@ then
     mv "$TMP" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
 fi
 
-# Set the MyKDownloader device name.
+# Set the MyJDownloader device name.
 if [ -n "${MYJDOWNLOADER_DEVICE_NAME:-}" ]; then
     TMP="$(mktemp)"
     jq -c -M ".devicename = \"$(echo "$MYJDOWNLOADER_DEVICE_NAME" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json > "$TMP"
@@ -44,18 +44,6 @@ else
 fi
 
 # Take ownership of the output directory.
-if ! chown $USER_ID:$GROUP_ID /output 2>/dev/null; then
-    # Failed to take ownership of /output.  This could happen when,
-    # for example, the folder is mapped to a network share.
-    # Continue if we have write permission, else fail.
-    TMPFILE="$(su-exec $USER_ID:$GROUP_ID mktemp /output/.test_XXXXXX 2>/dev/null)"
-    if [ $? -eq 0 ]; then
-        # Success, we were able to write file.
-        su-exec $USER_ID:$GROUP_ID rm "$TMPFILE"
-    else
-        log "ERROR: Failed to take ownership and no write permission on /output."
-        exit 1
-    fi
-fi
+take-ownership /output
 
 # vim: set ft=sh :
