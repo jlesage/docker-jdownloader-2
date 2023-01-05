@@ -12,14 +12,6 @@ if [ ! -f /config/JDownloader.jar ]; then
     cp -r /defaults/cfg /config/
 fi
 
-# Make sure the saved window state is maximized.
-# This is a workaround for JWM bug where it doesn't maximize Java apps.
-if [ -f /config/JDownloader.jar ]; then
-    TMP="$(mktemp)"
-    jq -c -M '.extendedState = "MAXIMIZED_BOTH"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.lastframestatus.json > "$TMP"
-    mv "$TMP" /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.lastframestatus.json
-fi
-
 # Set MyJDownloader credentials.
 if [ -n "${MYJDOWNLOADER_EMAIL:-}" ] && [ -n "${MYJDOWNLOADER_PASSWORD:-}" ]
 then
