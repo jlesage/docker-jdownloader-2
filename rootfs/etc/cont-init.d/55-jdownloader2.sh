@@ -28,7 +28,7 @@ if [ -n "${MYJDOWNLOADER_DEVICE_NAME:-}" ]; then
 fi
 
 # Handle dark mode change.
-if [ "${DARK_MODE:-0}" -eq 0 ]; then
+if is-bool-val-false "${DARK_MODE:-0}"; then
     # Dark mode disabled.  Change theme only if it is currently set to our dark mode.
     CURRENT_THEME="$(jq -r -c -M '.lookandfeeltheme' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json)"
     if [ "$CURRENT_THEME" = "FLATLAF_DRACULA" ]; then

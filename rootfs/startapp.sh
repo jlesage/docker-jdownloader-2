@@ -11,7 +11,7 @@ unset MYJDOWNLOADER_EMAIL
 unset MYJDOWNLOADER_PASSWORD
 
 log_debug() {
-    if [ "${CONTAINER_DEBUG:-0}" -eq 1 ]; then
+    if is-bool-val-true "${CONTAINER_DEBUG:-0}"; then
         echo "$@"
     fi
 }
@@ -34,7 +34,7 @@ is_jd_running() {
 }
 
 start_jd() {
-    if [ "${JDOWNLOADER_HEADLESS:-0}" -eq 1 ]; then
+    if is-bool-val-true "${JDOWNLOADER_HEADLESS:-0}"; then
         /usr/bin/java \
             -XX:-UsePerfData \
             -Djava.awt.headless=true \
