@@ -44,6 +44,6 @@ else
 fi
 
 # Take ownership of the output directory.
-take-ownership /output
+take-ownership --not-recursive /output
 
 # vim: set ft=sh :
