@@ -15,16 +15,12 @@ fi
 # Set MyJDownloader credentials.
 if [ -n "${MYJDOWNLOADER_EMAIL:-}" ] && [ -n "${MYJDOWNLOADER_PASSWORD:-}" ]
 then
-    TMP="$(mktemp)"
-    jq -c -M ".email=\"$MYJDOWNLOADER_EMAIL\" | .password = \"$(echo "$MYJDOWNLOADER_PASSWORD" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json > "$TMP"
-    mv "$TMP" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
+    jq -c -M ".email=\"$MYJDOWNLOADER_EMAIL\" | .password = \"$(echo "$MYJDOWNLOADER_PASSWORD" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json | sponge /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
 fi
 
 # Set the MyJDownloader device name.
 if [ -n "${MYJDOWNLOADER_DEVICE_NAME:-}" ]; then
-    TMP="$(mktemp)"
-    jq -c -M ".devicename = \"$(echo "$MYJDOWNLOADER_DEVICE_NAME" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json > "$TMP"
-    mv "$TMP" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
+    jq -c -M ".devicename = \"$(echo "$MYJDOWNLOADER_DEVICE_NAME" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json | sponge /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
 fi
 
 # Handle dark mode change.
@@ -32,15 +28,11 @@ if is-bool-val-false "${DARK_MODE:-0}"; then
     # Dark mode disabled.  Change theme only if it is currently set to our dark mode.
     CURRENT_THEME="$(jq -r -c -M '.lookandfeeltheme' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json)"
     if [ "$CURRENT_THEME" = "FLATLAF_DRACULA" ]; then
-        TMP="$(mktemp)"
-        jq -c -M '.lookandfeeltheme = "DEFAULT"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json > "$TMP"
-        mv "$TMP" /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
+        jq -c -M '.lookandfeeltheme = "DEFAULT"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json | sponge /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
     fi
 else
     # Dark mode enabled.  Force theme.
-    TMP="$(mktemp)"
-    jq -c -M '.lookandfeeltheme = "FLATLAF_DRACULA"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json > "$TMP"
-    mv "$TMP" /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
+    jq -c -M '.lookandfeeltheme = "FLATLAF_DRACULA"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json | sponge /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
 fi
 
 # Take ownership of the output directory.

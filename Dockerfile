@@ -47,7 +47,9 @@ RUN \
         # For ffmpeg and ffprobe tools.
         ffmpeg \
         # For rtmpdump tool.
-        rtmpdump
+        rtmpdump \
+        # Need for the sponge tool.
+        moreutils
 
 # Generate and install favicons.
 RUN \
