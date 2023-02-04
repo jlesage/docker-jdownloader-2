@@ -68,6 +68,10 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 23.02.1
+      date: 2023-02-04
+      changes:
+        - 'Updated baseimage to version 4.3.3, which brings robustness related enhancements.'
     - version: 23.01.2
       date: 2023-01-07
       changes:
