@@ -23,6 +23,7 @@ your valuable time every day!
    * [Quick Start](#quick-start)
    * [Usage](#usage)
       * [Environment Variables](#environment-variables)
+         * [Deployment Considerations](#deployment-considerations)
       * [Data Volumes](#data-volumes)
       * [Ports](#ports)
       * [Changing Parameters of a Running Container](#changing-parameters-of-a-running-container)
@@ -116,6 +117,43 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (unset) |
 |`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance.  Note that this can also be configured via the JDownloader GUI. | (unset) |
 |`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available.  In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
+
+#### Deployment Considerations
+
+Many tools used to manage Docker containers extract environment variables
+defined by the Docker image and use them to create/deploy the container.  For
+example, this is done by:
+  - The Docker application on Synology NAS
+  - The Container Station on QNAP NAS
+  - Portainer
+  - etc.
+
+While this can be useful for the user to adjust the value of environment
+variables to fit its needs, it can also be confusing and dangerous to keep all
+of them.
+
+A good pratice is to set/keep only the variables that are needed for the
+container to behave as desired in a specific setup.  If the value of variable is
+kept to its default value, it means that it can be removed.  Keep in mind that
+all variables are optional, meaning that none of them is required for the
+container to start.
+
+Removing environment variables that are not needed provides some advantages:
+
+  - Prevents keeping variables that are no longer used by the container.  Over
+    time, with image updates, some variables might be removed.
+  - Allows the Docker image to change/fix a default value.  Again, with image
+    updates, the default value of a variable might be changed to fix an issue,
+    or to better support a new feature.
+  - Prevents changes to a variable that might affect the correct function of
+    the container.  Some undocumented variables, like `PATH` or `ENV`, are
+    required to be exposed, but are not meant to be changed by users.  However,
+    container management tools still show these variables to users.
+  - There is a bug with the Container Station on QNAP, where the value of an
+    environment variable is mandatory.  This behavior is wrong and it's
+    perfectly fine to have a variable without value.  In fact, this container
+    does have variables without value by default.  Thus, removing uneeded
+    variables is a good way to prevent deployment issue on QNAP.
 
 ### Data Volumes
 
