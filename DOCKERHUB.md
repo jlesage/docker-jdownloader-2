@@ -29,13 +29,13 @@ docker run -d \
     --name=jdownloader-2 \
     -p 5800:5800 \
     -v /docker/appdata/jdownloader-2:/config:rw \
-    -v $HOME/Downloads:/output:rw \
+    -v /home/user/Downloads:/output:rw \
     jlesage/jdownloader-2
 ```
 
 Where:
   - `/docker/appdata/jdownloader-2`: This is where the application stores its configuration, states, log and any files needing persistency.
-  - `$HOME/Downloads`: This is where downloaded files are stored.
+  - `/home/user/Downloads`: This is where downloaded files are stored.
 
 Browse to `http://your-host-ip:5800` to access the JDownloader 2 GUI.
 

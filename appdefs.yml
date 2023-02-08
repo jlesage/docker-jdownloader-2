@@ -347,7 +347,7 @@ container:
   # Volumes
   volumes:
     - container_path: /output
-      host_path_example: $HOME/Downloads
+      host_path_example: /home/user/Downloads
       description: >-
         This is where downloaded files are stored.
       permissions: rw
