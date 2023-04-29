@@ -68,6 +68,11 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 23.04.1
+      date: 2023-04-29
+      changes:
+        - 'Update of the baseimage to version 4.4.0 brings the following changes:'
+        - '2:Updated TigerVNC to version 1.13.1.'
     - version: 23.03.1
       date: 2023-03-05
       changes:
