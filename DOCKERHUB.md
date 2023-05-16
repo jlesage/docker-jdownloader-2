@@ -1,5 +1,11 @@
 # Docker container for JDownloader 2
-[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/jdownloader-2/latest)](https://hub.docker.com/r/jlesage/jdownloader-2/tags) [![Build Status](https://github.com/jlesage/docker-jdownloader-2/actions/workflows/build-image.yml/badge.svg?branch=master)](https://github.com/jlesage/docker-jdownloader-2/actions/workflows/build-image.yml) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg)](https://github.com/jlesage/docker-jdownloader-2/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage)
+[![Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2/releases/latest)
+[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/jdownloader-2/latest?logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jlesage/jdownloader-2?label=Pulls&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2)
+[![Docker Stars](https://img.shields.io/docker/stars/jlesage/jdownloader-2?label=Stars&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/jlesage/docker-jdownloader-2/build-image.yml?logo=github&branch=master&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2/actions/workflows/build-image.yml)
+[![Source](https://img.shields.io/badge/Source-GitHub-blue?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
 This is a Docker container for [JDownloader 2](http://jdownloader.org).
 
