@@ -175,16 +175,22 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 ### Ports
 
-Here is the list of ports used by the container.  They can be mapped to the host
-via the `-p` parameter (one per port mapping).  Each mapping is defined in the
-following format: `<HOST_PORT>:<CONTAINER_PORT>`.  The port number inside the
-container cannot be changed, but you are free to use any port on the host side.
+Here is the list of ports used by the container.
 
-| Port | Mapping to host | Description |
-|------|-----------------|-------------|
-| 5800 | Optional | Port to access the application's GUI via the web interface.  Mapping to the host is optional if access through the web interface is not wanted.  For a container not using the default bridge network, the port can be changed with the `WEB_LISTENING_PORT` environment variable. |
-| 5900 | Optional | Port to access the application's GUI via the VNC protocol.  Mapping to the host is optional if access through the VNC protocol is not wanted.  For a container not using the default bridge network, the port can be changed with the `VNC_LISTENING_PORT` environment variable. |
-| 3129 | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance. Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
+When using the default bridge network, ports can be mapped to the host via the
+`-p` parameter (one per port mapping).  Each mapping is defined with the
+following format: `<HOST_PORT>:<CONTAINER_PORT>`.  The port number used inside
+the container might not be changeable, but you are free to use any port on the
+host side.
+
+See the [Docker Container Networking](https://docs.docker.com/config/containers/container-networking)
+documentation for more details.
+
+| Port | Protocol | Mapping to host | Description |
+|------|----------|-----------------|-------------|
+| 5800 | TCP | Optional | Port to access the application's GUI via the web interface.  Mapping to the host is optional if access through the web interface is not wanted.  For a container not using the default bridge network, the port can be changed with the `WEB_LISTENING_PORT` environment variable. |
+| 5900 | TCP | Optional | Port to access the application's GUI via the VNC protocol.  Mapping to the host is optional if access through the VNC protocol is not wanted.  For a container not using the default bridge network, the port can be changed with the `VNC_LISTENING_PORT` environment variable. |
+| 3129 | TCP | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance. Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
 
 ### Changing Parameters of a Running Container
 
