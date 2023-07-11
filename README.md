@@ -1,13 +1,19 @@
 # Docker container for JDownloader 2
-[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/jdownloader-2/latest)](https://hub.docker.com/r/jlesage/jdownloader-2/tags) [![Build Status](https://drone.le-sage.com/api/badges/jlesage/docker-jdownloader-2/status.svg)](https://drone.le-sage.com/jlesage/docker-jdownloader-2) [![GitHub Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg)](https://github.com/jlesage/docker-jdownloader-2/releases/latest) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/JocelynLeSage/0usd)
+[![Release](https://img.shields.io/github/release/jlesage/docker-jdownloader-2.svg?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2/releases/latest)
+[![Docker Image Size](https://img.shields.io/docker/image-size/jlesage/jdownloader-2/latest?logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jlesage/jdownloader-2?label=Pulls&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2)
+[![Docker Stars](https://img.shields.io/docker/stars/jlesage/jdownloader-2?label=Stars&logo=docker&style=for-the-badge)](https://hub.docker.com/r/jlesage/jdownloader-2)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/jlesage/docker-jdownloader-2/build-image.yml?logo=github&branch=master&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2/actions/workflows/build-image.yml)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
-This is a Docker container for [JDownloader 2](http://jdownloader.org/).
+This project implements a Docker container for [JDownloader 2](http://jdownloader.org).
 
-The GUI of the application is accessed through a modern web browser (no installation or configuration needed on the client side) or via any VNC client.
+The GUI of the application is accessed through a modern web browser (no
+installation or configuration needed on the client side) or via any VNC client.
 
 ---
 
-[![JDownloader 2 logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png&w=200)](http://jdownloader.org/)[![JDownloader 2](https://dummyimage.com/400x110/ffffff/575757&text=JDownloader+2)](http://jdownloader.org/)
+[![JDownloader 2 logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png&w=110)](http://jdownloader.org)[![JDownloader 2](https://images.placeholders.dev/?width=416&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=JDownloader%202&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](http://jdownloader.org)
 
 JDownloader 2 is a free, open-source download management tool with a huge
 community of developers that makes downloading as easy and fast as it should be.
@@ -19,32 +25,32 @@ your valuable time every day!
 
 ## Table of Content
 
-   * [Docker container for JDownloader 2](#docker-container-for-jdownloader-2)
-      * [Table of Content](#table-of-content)
-      * [Quick Start](#quick-start)
-      * [Usage](#usage)
-         * [Environment Variables](#environment-variables)
-         * [Data Volumes](#data-volumes)
-         * [Ports](#ports)
-         * [Changing Parameters of a Running Container](#changing-parameters-of-a-running-container)
-      * [Docker Compose File](#docker-compose-file)
-      * [Docker Image Update](#docker-image-update)
-         * [Synology](#synology)
-         * [unRAID](#unraid)
-      * [User/Group IDs](#usergroup-ids)
-      * [Accessing the GUI](#accessing-the-gui)
-      * [Security](#security)
-         * [SSVNC](#ssvnc)
-         * [Certificates](#certificates)
-         * [VNC Password](#vnc-password)
-      * [Reverse Proxy](#reverse-proxy)
-         * [Routing Based on Hostname](#routing-based-on-hostname)
-         * [Routing Based on URL Path](#routing-based-on-url-path)
-      * [Shell Access](#shell-access)
-      * [MyJDownloader](#myjdownloader)
-         * [Direct Connection](#direct-connection)
-      * [Click'n'Load](#clicknload)
-      * [Support or Contact](#support-or-contact)
+   * [Quick Start](#quick-start)
+   * [Usage](#usage)
+      * [Environment Variables](#environment-variables)
+         * [Deployment Considerations](#deployment-considerations)
+      * [Data Volumes](#data-volumes)
+      * [Ports](#ports)
+      * [Changing Parameters of a Running Container](#changing-parameters-of-a-running-container)
+   * [Docker Compose File](#docker-compose-file)
+   * [Docker Image Versioning](#docker-image-versioning)
+   * [Docker Image Update](#docker-image-update)
+      * [Synology](#synology)
+      * [unRAID](#unraid)
+   * [User/Group IDs](#usergroup-ids)
+   * [Accessing the GUI](#accessing-the-gui)
+   * [Security](#security)
+      * [SSVNC](#ssvnc)
+      * [Certificates](#certificates)
+      * [VNC Password](#vnc-password)
+   * [Reverse Proxy](#reverse-proxy)
+      * [Routing Based on Hostname](#routing-based-on-hostname)
+      * [Routing Based on URL Path](#routing-based-on-url-path)
+   * [Shell Access](#shell-access)
+   * [MyJDownloader](#myjdownloader)
+      * [Direct Connection](#direct-connection)
+   * [Click'n'Load](#clicknload)
+   * [Support or Contact](#support-or-contact)
 
 ## Quick Start
 
@@ -52,24 +58,24 @@ your valuable time every day!
 and parameters should be adjusted to your need.
 
 Launch the JDownloader 2 docker container with the following command:
-```
+```shell
 docker run -d \
     --name=jdownloader-2 \
     -p 5800:5800 \
     -v /docker/appdata/jdownloader-2:/config:rw \
-    -v $HOME/Downloads:/output:rw \
+    -v /home/user/Downloads:/output:rw \
     jlesage/jdownloader-2
 ```
 
 Where:
-  - `/docker/appdata/jdownloader-2`: This is where the application stores its configuration, log and any files needing persistency.
-  - `$HOME/Downloads`: This is where downloaded files are stored.
+  - `/docker/appdata/jdownloader-2`: This is where the application stores its configuration, states, log and any files needing persistency.
+  - `/home/user/Downloads`: This is where downloaded files are stored.
 
 Browse to `http://your-host-ip:5800` to access the JDownloader 2 GUI.
 
 ## Usage
 
-```
+```shell
 docker run [-d] \
     --name=jdownloader-2 \
     [-e <VARIABLE_NAME>=<VALUE>]... \
@@ -77,6 +83,7 @@ docker run [-d] \
     [-p <HOST_PORT>:<CONTAINER_PORT>]... \
     jlesage/jdownloader-2
 ```
+
 | Parameter | Description |
 |-----------|-------------|
 | -d        | Run the container in the background.  If not set, the container runs in the foreground. |
@@ -94,19 +101,66 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |----------------|----------------------------------------------|---------|
 |`USER_ID`| ID of the user the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
 |`GROUP_ID`| ID of the group the application runs as.  See [User/Group IDs](#usergroup-ids) to better understand when this should be set. | `1000` |
-|`SUP_GROUP_IDS`| Comma-separated list of supplementary group IDs of the application. | (unset) |
-|`UMASK`| Mask that controls how file permissions are set for newly created files. The value of the mask is in octal notation.  By default, this variable is not set and the default umask of `022` is used, meaning that newly created files are readable by everyone, but only writable by the owner. See the following online umask calculator: http://wintelguy.com/umask-calc.pl | (unset) |
-|`TZ`| [TimeZone] of the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
-|`KEEP_APP_RUNNING`| When set to `1`, the application will be automatically restarted if it crashes or if a user quits it. | `0` |
-|`APP_NICENESS`| Priority at which the application should run.  A niceness value of -20 is the highest priority and 19 is the lowest priority.  By default, niceness is not set, meaning that the default niceness of 0 is used.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | (unset) |
-|`CLEAN_TMP_DIR`| When set to `1`, all files in the `/tmp` directory are deleted during the container startup. | `1` |
-|`DISPLAY_WIDTH`| Width (in pixels) of the application's window. | `1280` |
-|`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `768` |
+|`SUP_GROUP_IDS`| Comma-separated list of supplementary group IDs of the application. | (no value) |
+|`UMASK`| Mask that controls how file permissions are set for newly created files. The value of the mask is in octal notation.  By default, the default umask value is `0022`, meaning that newly created files are readable by everyone, but only writable by the owner.  See the online umask calculator at http://wintelguy.com/umask-calc.pl. | `0022` |
+|`LANG`| Set the [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)), which defines the application's language, **if supported**.  Format of the locale is `language[_territory][.codeset]`, where language is an [ISO 639 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), territory is an [ISO 3166 country code](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes) and codeset is a character set, like `UTF-8`.  For example, Australian English using the UTF-8 encoding is `en_AU.UTF-8`. | `en_US.UTF-8` |
+|`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container.  Timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
+|`KEEP_APP_RUNNING`| When set to `1`, the application will be automatically restarted when it crashes or terminates. | `0` |
+|`APP_NICENESS`| Priority at which the application should run.  A niceness value of -20 is the highest priority and 19 is the lowest priority.  The default niceness value is 0.  **NOTE**: A negative niceness (priority increase) requires additional permissions.  In this case, the container should be run with the docker option `--cap-add=SYS_NICE`. | `0` |
+|`INSTALL_PACKAGES`| Space-separated list of packages to install during the startup of the container.  Packages are installed from the repository of the Linux distribution this container is based on.  **ATTENTION**: Container functionality can be affected when installing a package that overrides existing container files (e.g. binaries). | (no value) |
+|`CONTAINER_DEBUG`| Set to `1` to enable debug logging. | `0` |
+|`DISPLAY_WIDTH`| Width (in pixels) of the application's window. | `1920` |
+|`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `1080` |
+|`DARK_MODE`| When set to `1`, dark mode is enabled for the application. | `0` |
 |`SECURE_CONNECTION`| When set to `1`, an encrypted connection is used to access the application's GUI (either via a web browser or VNC client).  See the [Security](#security) section for more details. | `0` |
-|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (unset) |
-|`X11VNC_EXTRA_OPTS`| Extra options to pass to the x11vnc server running in the Docker container.  **WARNING**: For advanced users. Do not use unless you know what you are doing. | (unset) |
+|`SECURE_CONNECTION_VNC_METHOD`| Method used to perform the secure VNC connection.  Possible values are `SSL` or `TLS`.  See the [Security](#security) section for more details. | `SSL` |
+|`SECURE_CONNECTION_CERTS_CHECK_INTERVAL`| Interval, in seconds, at which the system verifies if web or VNC certificates have changed.  When a change is detected, the affected services are automatically restarted.  A value of `0` disables the check. | `60` |
+|`WEB_LISTENING_PORT`| Port used by the web server to serve the UI of the application.  This port is used internally by the container and it is usually not required to be changed.  By default, a container is created with the default bridge network, meaning that, to be accessible, each internal container port must be mapped to an external port (using the `-p` or `--publish` argument).  However, if the container is created with another network type, changing the port used by the container might be useful to prevent conflict with other services/containers.  **NOTE**: a value of `-1` disables listening, meaning that the application's UI won't be accessible over HTTP/HTTPs. | `5800` |
+|`VNC_LISTENING_PORT`| Port used by the VNC server to serve the UI of the application.  This port is used internally by the container and it is usually not required to be changed.  By default, a container is created with the default bridge network, meaning that, to be accessible, each internal container port must be mapped to an external port (using the `-p` or `--publish` argument).  However, if the container is created with another network type, changing the port used by the container might be useful to prevent conflict with other services/containers.  **NOTE**: a value of `-1` disables listening, meaning that the application's UI won't be accessible over VNC. | `5900` |
+|`VNC_PASSWORD`| Password needed to connect to the application's GUI.  See the [VNC Password](#vnc-password) section for more details. | (no value) |
 |`ENABLE_CJK_FONT`| When set to `1`, open-source computer font `WenQuanYi Zen Hei` is installed.  This font contains a large range of Chinese/Japanese/Korean characters. | `0` |
-|`INSTALL_EXTRA_PKGS`| Space-separated list of Alpine Linux packages to install.  See https://pkgs.alpinelinux.org/packages?name=&branch=v3.9&arch=x86_64 for the list of available Alpine Linux packages. | (unset) |
+|`MYJDOWNLOADER_EMAIL`| Email address of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance.  Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available.  In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
+
+#### Deployment Considerations
+
+Many tools used to manage Docker containers extract environment variables
+defined by the Docker image and use them to create/deploy the container.  For
+example, this is done by:
+  - The Docker application on Synology NAS
+  - The Container Station on QNAP NAS
+  - Portainer
+  - etc.
+
+While this can be useful for the user to adjust the value of environment
+variables to fit its needs, it can also be confusing and dangerous to keep all
+of them.
+
+A good practice is to set/keep only the variables that are needed for the
+container to behave as desired in a specific setup.  If the value of variable is
+kept to its default value, it means that it can be removed.  Keep in mind that
+all variables are optional, meaning that none of them is required for the
+container to start.
+
+Removing environment variables that are not needed provides some advantages:
+
+  - Prevents keeping variables that are no longer used by the container.  Over
+    time, with image updates, some variables might be removed.
+  - Allows the Docker image to change/fix a default value.  Again, with image
+    updates, the default value of a variable might be changed to fix an issue,
+    or to better support a new feature.
+  - Prevents changes to a variable that might affect the correct function of
+    the container.  Some undocumented variables, like `PATH` or `ENV`, are
+    required to be exposed, but are not meant to be changed by users.  However,
+    container management tools still show these variables to users.
+  - There is a bug with the Container Station on QNAP and the Docker application
+    on Synology, where an environment variable without value might not be
+    allowed.  This behavior is wrong: it's absolutely fine to have a variable
+    without value.  In fact, this container does have variables without value by
+    default.  Thus, removing unneeded variables is a good way to prevent
+    deployment issue on these devices.
 
 ### Data Volumes
 
@@ -116,21 +170,27 @@ format: `<HOST_DIR>:<CONTAINER_DIR>[:PERMISSIONS]`.
 
 | Container path  | Permissions | Description |
 |-----------------|-------------|-------------|
-|`/config`| rw | This is where the application stores its configuration, log and any files needing persistency. |
+|`/config`| rw | This is where the application stores its configuration, states, log and any files needing persistency. |
 |`/output`| rw | This is where downloaded files are stored. |
 
 ### Ports
 
-Here is the list of ports used by the container.  They can be mapped to the host
-via the `-p` parameter (one per port mapping).  Each mapping is defined in the
-following format: `<HOST_PORT>:<CONTAINER_PORT>`.  The port number inside the
-container cannot be changed, but you are free to use any port on the host side.
+Here is the list of ports used by the container.
 
-| Port | Mapping to host | Description |
-|------|-----------------|-------------|
-| 5800 | Mandatory | Port used to access the application's GUI via the web interface. |
-| 5900 | Optional | Port used to access the application's GUI via the VNC protocol.  Optional if no VNC client is used. |
-| 3129 | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance.  Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
+When using the default bridge network, ports can be mapped to the host via the
+`-p` parameter (one per port mapping).  Each mapping is defined with the
+following format: `<HOST_PORT>:<CONTAINER_PORT>`.  The port number used inside
+the container might not be changeable, but you are free to use any port on the
+host side.
+
+See the [Docker Container Networking](https://docs.docker.com/config/containers/container-networking)
+documentation for more details.
+
+| Port | Protocol | Mapping to host | Description |
+|------|----------|-----------------|-------------|
+| 5800 | TCP | Optional | Port to access the application's GUI via the web interface.  Mapping to the host is optional if access through the web interface is not wanted.  For a container not using the default bridge network, the port can be changed with the `WEB_LISTENING_PORT` environment variable. |
+| 5900 | TCP | Optional | Port to access the application's GUI via the VNC protocol.  Mapping to the host is optional if access through the VNC protocol is not wanted.  For a container not using the default bridge network, the port can be changed with the `VNC_LISTENING_PORT` environment variable. |
+| 3129 | TCP | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance. Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
 
 ### Changing Parameters of a Running Container
 
@@ -174,8 +234,21 @@ services:
       - "5800:5800"
     volumes:
       - "/docker/appdata/jdownloader-2:/config:rw"
-      - "$HOME/Downloads:/output:rw"
+      - "/home/user/Downloads:/output:rw"
 ```
+
+## Docker Image Versioning
+
+Each release of a Docker image is versioned.  Prior to october 2022, the
+[semantic versioning](https://semver.org) was used as the versioning scheme.
+
+Since then, versioning scheme changed to
+[calendar versioning](https://calver.org).  The format used is `YY.MM.SEQUENCE`,
+where:
+  - `YY` is the zero-padded year (relative to year 2000).
+  - `MM` is the zero-padded month.
+  - `SEQUENCE` is the incremental release number within the month (first release
+    is 1, second is 2, etc).
 
 ## Docker Image Update
 
@@ -268,11 +341,13 @@ Assuming that container's ports are mapped to the same host's ports, the
 graphical interface of the application can be accessed via:
 
   * A web browser:
+
 ```
 http://<HOST IP ADDR>:5800
 ```
 
   * Any VNC client:
+
 ```
 <HOST IP ADDR>:5900
 ```
@@ -453,12 +528,12 @@ server {
 
 To get shell access to the running container, execute the following command:
 
-```
+```shell
 docker exec -ti CONTAINER sh
 ```
 
 Where `CONTAINER` is the ID or the name of the container used during its
-creation (e.g. `crashplan-pro`).
+creation.
 
 ## MyJDownloader
 
@@ -501,8 +576,6 @@ JDownloader via the *MyJDownloader* service.
 
 [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
 [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
-
-[TimeZone]: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 ## Support or Contact
 

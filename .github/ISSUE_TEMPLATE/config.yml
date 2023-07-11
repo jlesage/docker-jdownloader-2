@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question, discuss
+    url: https://github.com/jlesage/docker-jdownloader-2/discussions
+    about: Get help using this Docker container.
+  - name: Documentation
+    url: https://github.com/jlesage/docker-jdownloader-2#readme
+    about: Documentation about this Docker container.
