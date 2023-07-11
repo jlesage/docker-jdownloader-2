@@ -3,46 +3,53 @@
 #
 # https://github.com/jlesage/docker-jdownloader-2
 #
-
-# Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.12-v3.5.7
+# NOTES:
+#   - We are using JRE version 8 because recent versions are much bigger.
+#   - JRE for ARM 32-bits on Alpine is very hard to get:
+#     - The version in Alpine repo is very, very slow.
+#     - The glibc version doesn't work well on Alpine with a compatibility
+#       layer (gcompat or libc6-compat).  The `__xstat` symbol is missing and
+#       implementing a wrapper is not straight-forward because the `struct stat`
+#       is not constant across architectures (32/64 bits) and glibc/musl.
+#
 
 # Docker image version is provided via build arg.
-ARG DOCKER_IMAGE_VERSION=unknown
+ARG DOCKER_IMAGE_VERSION=
 
 # Define software download URLs.
 ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
 
+# Download JDownloader2
+FROM --platform=$BUILDPLATFORM alpine:3.16 AS jd2
+ARG JDOWNLOADER_URL
+RUN \
+    apk --no-cache add curl && \
+    mkdir -p /defaults && \
+    curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
+
+# Pull base image.
+FROM jlesage/baseimage-gui:alpine-3.16-v4.4.2
+
+ARG DOCKER_IMAGE_VERSION
+
 # Define working directory.
 WORKDIR /tmp
-
-# Download JDownloader 2.
-RUN \
-    add-pkg --virtual build-dependencies \
-        curl \
-        && \
-    mkdir -p /defaults && \
-    # Download.
-    curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL} && \
-    # Cleanup.
-    del-pkg build-dependencies && \
-    rm -rf /tmp/* /tmp/.[!.]*
 
 # Install dependencies.
 RUN \
     add-pkg \
+        java-common \
         openjdk8-jre \
-        libstdc++ \
+        # Needed by the init script.
+        jq \
+        # We need a font.
         ttf-dejavu \
         # For ffmpeg and ffprobe tools.
         ffmpeg \
         # For rtmpdump tool.
-        rtmpdump
-
-# Maximize only the main/initial window.
-RUN \
-    sed-patch 's/<application type="normal">/<application type="normal" title="JDownloader 2">/' \
-        /etc/xdg/openbox/rc.xml
+        rtmpdump \
+        # Need for the sponge tool.
+        moreutils
 
 # Generate and install favicons.
 RUN \
@@ -51,13 +58,15 @@ RUN \
 
 # Add files.
 COPY rootfs/ /
+COPY --from=jd2 /defaults/JDownloader.jar /defaults/JDownloader.jar
 
-# Set environment variables.
-ENV APP_NAME="JDownloader 2" \
-    S6_KILL_GRACETIME=8000
+# Set internal environment variables.
+RUN \
+    set-cont-env APP_NAME "JDownloader 2" && \
+    set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
+    true
 
 # Define mountable directories.
-VOLUME ["/config"]
 VOLUME ["/output"]
 
 # Expose ports.
@@ -76,6 +85,6 @@ LABEL autoheal=true
 LABEL \
       org.label-schema.name="jdownloader-2" \
       org.label-schema.description="Docker container for JDownloader 2" \
-      org.label-schema.version="$DOCKER_IMAGE_VERSION" \
+      org.label-schema.version="${DOCKER_IMAGE_VERSION:-unknown}" \
       org.label-schema.vcs-url="https://github.com/jlesage/docker-jdownloader-2" \
       org.label-schema.schema-version="1.0"
