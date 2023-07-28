@@ -562,7 +562,7 @@ mode is not automatically detected/activated and the following steps are require
   * Go to *Settings*->*Advanced Settings*.
   * Search for `MyJDownloaderSettings`.
   * Set `Custom Device IPs` to the IP address of the host running the container,
-    between double quotes (e.g. `"192.168.1.1"`).
+   using double quotes and brackets like this example: `["192.168.1.1"]` .
   * Change the `Direct Connection Mode` to `Allow lan/wan connections with
     manual port forwarding`.
   * Restart JDownloader (*File*->*Restart*).
