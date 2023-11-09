@@ -12,6 +12,7 @@ app:
   name: jdownloader-2
   friendly_name: JDownloader 2
   gui_type: x11
+  base_os: alpine
   project:
     description: |-
       JDownloader 2 is a free, open-source download management tool with a huge
