@@ -69,6 +69,11 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 23.12.1
+      date: 2023-12-25
+      changes:
+        - 'Added the ability to set the maximum amount of memory used by JDownloader via the `JDOWNLOADER_MAX_MEM` environment variable.'
+        - 'Added support for the `JDownloader2.vmoptions` file.'
     - version: 23.11.2
       date: 2023-11-19
       changes:
