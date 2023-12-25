@@ -34,18 +34,29 @@ is_jd_running() {
 }
 
 start_jd() {
-    if is-bool-val-true "${JDOWNLOADER_HEADLESS:-0}"; then
-        /usr/bin/java \
-            -XX:-UsePerfData \
-            -Djava.awt.headless=true \
-            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
-    else
-        /usr/bin/java \
-            -XX:-UsePerfData \
-            -Dawt.useSystemAAFontSettings=gasp \
-            -Djava.awt.headless=false \
-            -jar /config/JDownloader.jar >/config/logs/output.log 2>&1 &
+    ARGS="$(mktemp)"
+
+    # Support for JDownloader2.vmoptions.
+    # https://support.jdownloader.org/Knowledgebase/Article/View/vmoptions-file
+    if [ -f /config/JDownloader2.vmoptions ]; then
+        cat /config/JDownloader2.vmoptions > "$ARGS"
     fi
+
+    if is-bool-val-true "${JDOWNLOADER_HEADLESS:-0}"; then
+        echo "-XX:-UsePerfData" >> "$ARGS"
+        echo "-Djava.awt.headless=true" >> "$ARGS"
+    else
+        echo "-XX:-UsePerfData" >> "$ARGS"
+        echo "-Dawt.useSystemAAFontSettings=gasp" >> "$ARGS"
+        echo "-Djava.awt.headless=false" >> "$ARGS"
+    fi
+
+    echo "-jar" >> "$ARGS"
+    echo "/config/JDownloader.jar" >> "$ARGS"
+
+    cat "$ARGS" | grep -v "^\s*#" | tr '\n' '\0' | xargs -0 \
+        /usr/bin/java >/config/logs/output.log 2>&1 &
+    rm "$ARGS"
 }
 
 kill_jd() {
@@ -87,3 +98,5 @@ do
     fi
     sleep 1
 done
+
+# vim:ft=sh:ts=4:sw=4:et:sts=4
