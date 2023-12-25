@@ -23,6 +23,16 @@ if [ -n "${MYJDOWNLOADER_DEVICE_NAME:-}" ]; then
     jq -c -M ".devicename = \"$(echo "$MYJDOWNLOADER_DEVICE_NAME" | sed 's/"/\\"/g')\"" /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json | sponge /config/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
 fi
 
+# Validate the max memory value.
+if [ -n "${JDOWNLOADER_MAX_MEM:-}" ]; then
+    if ! echo "$JDOWNLOADER_MAX_MEM" | grep -q "^[0-9]\+[g|G|m|M|k|K]$"
+    then
+        echo "ERROR: invalid value for JDOWNLOADER_MAX_MEM variable: '$JDOWNLOADER_MAX_MEM'."
+        exit 1
+    fi
+    echo "JDownloader 2 maximum memory is set to $JDOWNLOADER_MAX_MEM"
+fi
+
 # Handle dark mode change.
 if is-bool-val-false "${DARK_MODE:-0}"; then
     # Dark mode disabled.  Change theme only if it is currently set to our dark mode.

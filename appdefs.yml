@@ -384,6 +384,22 @@ container:
         display: advanced
         required: false
         mask: false
+    - name: JDOWNLOADER_MAX_MEM
+      description: >-
+        Maximum amount of memory JDownloader is allowed to use. One of the
+        following memory unit (case insensitive) should be added as a suffix to
+        the size: `G`, `M` or `K`.  When this variable is not set, the limit is
+        automatically calculated based on the amount of RAM of the system.
+      type: public
+      unraid_template:
+        title: Maximum Memory
+        description: >-
+          Maximum amount of memory JDownloader is allowed to use.  One
+          of the following memory unit (case insensitive) should be added as a
+          suffix to the size: G, M or K.
+        display: advanced
+        required: false
+        mask: false
 
   # Volumes
   volumes:

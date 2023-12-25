@@ -36,6 +36,13 @@ is_jd_running() {
 start_jd() {
     ARGS="$(mktemp)"
 
+    # Handle max memory set via environment variable.
+    if [ -n "${JDOWNLOADER_MAX_MEM:-}" ]; then
+        # NOTE: It is assumed that the max memory value has already been
+        # validated.
+        echo "-Xmx$JDOWNLOADER_MAX_MEM" >> "$ARGS"
+    fi
+
     # Support for JDownloader2.vmoptions.
     # https://support.jdownloader.org/Knowledgebase/Article/View/vmoptions-file
     if [ -f /config/JDownloader2.vmoptions ]; then

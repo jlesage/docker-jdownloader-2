@@ -126,6 +126,7 @@ of this parameter has the format `<VARIABLE_NAME>=<VALUE>`.
 |`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (no value) |
 |`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance.  Note that this can also be configured via the JDownloader GUI. | (no value) |
 |`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available.  In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
+|`JDOWNLOADER_MAX_MEM`| Maximum amount of memory JDownloader is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  When this variable is not set, the limit is automatically calculated based on the amount of RAM of the system. | (no value) |
 
 #### Deployment Considerations
 
