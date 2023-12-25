@@ -66,6 +66,14 @@ RUN \
     set-cont-env DOCKER_IMAGE_VERSION "$DOCKER_IMAGE_VERSION" && \
     true
 
+# Set public environment variables.
+ENV \
+    MYJDOWNLOADER_EMAIL= \
+    MYJDOWNLOADER_PASSWORD= \
+    MYJDOWNLOADER_DEVICE_NAME= \
+    JDOWNLOADER_HEADLESS=0 \
+    JDOWNLOADER_MAX_MEM=
+
 # Define mountable directories.
 VOLUME ["/output"]
 
