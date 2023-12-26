@@ -46,7 +46,7 @@ start_jd() {
     # Support for JDownloader2.vmoptions.
     # https://support.jdownloader.org/Knowledgebase/Article/View/vmoptions-file
     if [ -f /config/JDownloader2.vmoptions ]; then
-        cat /config/JDownloader2.vmoptions > "$ARGS"
+        cat /config/JDownloader2.vmoptions >> "$ARGS"
     fi
 
     if is-bool-val-true "${JDOWNLOADER_HEADLESS:-0}"; then
