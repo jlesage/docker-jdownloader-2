@@ -34,7 +34,7 @@ is_jd_running() {
 }
 
 start_jd() {
-    ARGS="$(mktemp)"
+    ARGS="/tmp/.jd_args"
 
     # Handle max memory set via environment variable.
     if [ -n "${JDOWNLOADER_MAX_MEM:-}" ]; then
@@ -63,7 +63,6 @@ start_jd() {
 
     cat "$ARGS" | grep -v "^\s*#" | tr '\n' '\0' | xargs -0 \
         /usr/bin/java >/config/logs/output.log 2>&1 &
-    rm "$ARGS"
 }
 
 kill_jd() {
