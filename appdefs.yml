@@ -69,6 +69,10 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 23.12.2
+      date: 2023-12-26
+      changes:
+        - 'Fixed race condition that could prevent JDownloader from starting correctly.'
     - version: 23.12.1
       date: 2023-12-25
       changes:
