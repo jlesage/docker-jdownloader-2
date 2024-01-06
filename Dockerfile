@@ -28,7 +28,7 @@ RUN \
     curl -# -L -o /defaults/JDownloader.jar ${JDOWNLOADER_URL}
 
 # Pull base image.
-FROM jlesage/baseimage-gui:alpine-3.16-v4.5.2
+FROM jlesage/baseimage-gui:alpine-3.16-v4.5.3
 
 ARG DOCKER_IMAGE_VERSION
 
