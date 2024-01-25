@@ -69,6 +69,12 @@ app:
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
   changelog:
+    - version: 24.01.1
+      date: 2024-01-25
+      changes:
+        - 'Updated baseimage to version 4.5.3, which brings the following changes:'
+        - '2:Disabled fullscreen support when page is loaded into an iFrame.'
+        - '2:Rebuilt against latest distro images to get security fixes.'
     - version: 23.12.2
       date: 2023-12-26
       changes:
