@@ -68,6 +68,24 @@ app:
 
           [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
           [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
+      - title: Troubleshooting
+        level: 2
+      - title: JDownloader Fails to Start
+        level: 3
+        content: |-
+          If JDownloader displays an error indicating that it is unable to start,
+          following these instruction might help fixing the problem.
+
+          1. Create the file `.fix_jd_install`, under the directory that has been mapped
+             to `/config`. The content of the file is not important. However, if the
+             latest JDownloader installer is required, setting the content to `download`
+             causes the installer to be downloaded.
+          2. Restart the container.
+
+          The presence of the file causes the container to attempt fixing the installation
+          during its startup. The repair process follows the instructions provided at:
+
+          https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
     - version: 24.08.1
       date: 2024-08-02

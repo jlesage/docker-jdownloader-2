@@ -6,11 +6,41 @@ set -u # Treat unset variables as an error.
 # Make sure mandatory directories exist.
 mkdir -p /config/logs
 
-# Set default configuration on new install.
-if [ ! -f /config/JDownloader.jar ]; then
-    cp /defaults/JDownloader.jar /config/
-    cp -r /defaults/cfg /config/
+# Fix installation if requested.
+# https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
+if [ -f /config/.fix_jd_install ]; then
+    TO_REMOVE="
+        Core.Jar
+        JDownloader.jar
+        tmp
+        update
+    "
+
+    echo "fixing JDownloader installation..."
+    echo "$TO_REMOVE" | while read -r FILE; do
+        [ -n "$FILE" ] || continue
+        echo "removing /config/$FILE..."
+        rm -rf /config/"$FILE"
+    done
+
+    if [ "$(cat /config/.fix_jd_install)" = "download" ]; then
+        JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
+        echo "downloading JDownloader installer..."
+        if curl -s -L --show-error --fail --max-time 120 -o /tmp/JDownloader.jar.download "$JDOWNLOADER_URL"
+        then
+            mv /tmp/JDownloader.jar.download /config/JDownloader.jar
+        else
+            echo "failed to download JDownloader installer."
+        fi
+    fi
+
+    echo "installation fix done."
+    rm /config/.fix_jd_install
 fi
+
+# Set default configuration on new install.
+[ -f /config/JDownloader.jar ] || cp -v /defaults/JDownloader.jar /config/JDownloader.jar
+[ -d /config/cfg ] || cp -rv /defaults/cfg /config/cfg
 
 # Set MyJDownloader credentials.
 if [ -n "${MYJDOWNLOADER_EMAIL:-}" ] && [ -n "${MYJDOWNLOADER_PASSWORD:-}" ]

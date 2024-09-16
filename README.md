@@ -52,6 +52,8 @@ your valuable time every day!
    * [MyJDownloader](#myjdownloader)
       * [Direct Connection](#direct-connection)
    * [Click'n'Load](#clicknload)
+   * [Troubleshooting](#troubleshooting)
+      * [JDownloader Fails to Start](#jdownloader-fails-to-start)
    * [Support or Contact](#support-or-contact)
 
 ## Quick Start
@@ -643,6 +645,24 @@ JDownloader via the *MyJDownloader* service.
 
 [Click'n'Load]: http://jdownloader.org/knowledge/wiki/glossary/cnl2
 [MyJDownloader browser extension]: https://my.jdownloader.org/apps/
+
+## Troubleshooting
+
+### JDownloader Fails to Start
+
+If JDownloader displays an error indicating that it is unable to start,
+following these instruction might help fixing the problem.
+
+1. Create the file `.fix_jd_install`, under the directory that has been mapped
+   to `/config`. The content of the file is not important. However, if the
+   latest JDownloader installer is required, setting the content to `download`
+   causes the installer to be downloaded.
+2. Restart the container.
+
+The presence of the file causes the container to attempt fixing the installation
+during its startup. The repair process follows the instructions provided at:
+
+https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
 
 ## Support or Contact
 

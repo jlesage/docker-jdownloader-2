@@ -44,6 +44,8 @@ RUN \
         jq \
         # We need a font.
         ttf-dejavu \
+        # For fixing JD installation.
+        curl \
         # For ffmpeg and ffprobe tools.
         ffmpeg \
         # For rtmpdump tool.
