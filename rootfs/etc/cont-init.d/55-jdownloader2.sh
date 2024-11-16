@@ -39,7 +39,13 @@ if [ -f /config/.fix_jd_install ]; then
 fi
 
 # Set default configuration on new install.
-[ -f /config/JDownloader.jar ] || cp -v /defaults/JDownloader.jar /config/JDownloader.jar
+[ -f /config/JDownloader.jar ] || {
+    cp -v /defaults/JDownloader.jar /config/JDownloader.jar
+    # Since JDownloader.jar have been copied, keep the installation in a
+    # compatible state by making sure Core.jar and the update directory are
+    # removed.
+    rm -rf /config/Core.jar /config/update
+}
 [ -d /config/cfg ] || cp -rv /defaults/cfg /config/cfg
 
 # Set MyJDownloader credentials.
