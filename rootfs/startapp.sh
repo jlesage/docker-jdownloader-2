@@ -2,10 +2,9 @@
 
 set -u # Treat unset variables as an error.
 
-trap "exit" TERM QUIT INT
-trap "kill_jd" EXIT
+trap "terminate" TERM QUIT INT
 
-# JDownloader logs all environment variables.  Make sure to MyJDownloader
+# JDownloader logs all environment variables.  Make sure the MyJDownloader
 # credentials don't leak.
 unset MYJDOWNLOADER_EMAIL
 unset MYJDOWNLOADER_PASSWORD
@@ -16,27 +15,14 @@ log_debug() {
     fi
 }
 
-get_jd_pid() {
-    PID=UNSET
-    if [ -f /config/JD2.lock ]; then
-        FUSER_STR="$(fuser /config/JD2.lock 2>/dev/null)"
-        if [ $? -eq 0 ]; then
-            echo "$FUSER_STR" | awk '{print $1}'
-            return
-        fi
-    fi
-
-    echo "UNSET"
-}
-
 is_jd_running() {
-    [ "$(get_jd_pid)" != "UNSET" ]
+    pgrep java >/dev/null
 }
 
 start_jd() {
     ARGS="/tmp/.jd_args"
 
-    # Handle max memory set via environment variable.
+    # Handle max memory from environment variable.
     if [ -n "${JDOWNLOADER_MAX_MEM:-}" ]; then
         # NOTE: It is assumed that the max memory value has already been
         # validated.
@@ -66,41 +52,41 @@ start_jd() {
 }
 
 kill_jd() {
-    PID="$(get_jd_pid)"
-    if [ "$PID" != "UNSET" ]; then
-        log_debug "terminating JDownloader2..."
-        kill $PID
-        wait $PID
-        exit $?
-    fi
+    # Kill JDownloader.
+    killall java 2>/dev/null
+
+    # Wait for JDownloader to terminate.
+    while is_jd_running; do
+        sleep 0.25
+    done
+}
+
+terminate() {
+    log_debug "terminating JDownloader2..."
+    kill_jd
+    log_debug "JDownloader2 terminated."
+    exit 0
 }
 
 # Start JDownloader.
+#
+# NOTE: Because JDownloader can restart itself (e.g. during an update), we have
+#       to launch JDownloader in background and monitor its status. This is
+#       needed to make sure the container doesn't terminate itself during a
+#       restart of JDownloader.
 log_debug "starting JDownloader2..."
 start_jd
 
 # Wait until it dies.
 wait $!
 
-TIMEOUT=10
-
+# Now monitor its state. At this point, we cannot "wait" on the process since
+# it has not been launched by us.
 while true
 do
-    if is_jd_running; then
-        if [ "$TIMEOUT" -lt 10 ]; then
-            log_debug "JDownloader2 has restarted."
-        fi
-
-        # Reset the timeout.
-        TIMEOUT=10
-    else
-        if [ "$TIMEOUT" -eq 10 ]; then
-            log_debug "JDownloader2 exited, checking if it is restarting..."
-        elif [ "$TIMEOUT" -eq 0 ]; then
-            log_debug "JDownloader2 not restarting, exiting..."
-            break
-        fi
-        TIMEOUT="$(expr $TIMEOUT - 1)"
+    if ! is_jd_running; then
+        log_debug "JDownloader2 not running, exiting..."
+        break
     fi
     sleep 1
 done
