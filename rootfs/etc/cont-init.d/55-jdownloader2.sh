@@ -38,6 +38,14 @@ if [ -f /config/.fix_jd_install ]; then
     rm /config/.fix_jd_install
 fi
 
+# Remove JDownloader.jar if it has been corrupted.
+if [ -f /config/JDownloader.jar ]; then
+    if ! unzip -t /config/JDownloader.jar 2>/dev/null; then
+        echo "JDownloader.jar corrupted, removing."
+        rm /config/JDownloader.jar
+    fi
+fi
+
 # Set default configuration on new install.
 [ -f /config/JDownloader.jar ] || {
     cp -v /defaults/JDownloader.jar /config/JDownloader.jar
