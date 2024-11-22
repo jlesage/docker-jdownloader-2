@@ -87,6 +87,10 @@ app:
 
           https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
+    - version: 24.11.1
+      date: 2024-11-21
+      changes:
+        - 'Implemented improvements to reduce the risk of corrupting JDownloader installation during an update.'
     - version: 24.09.1
       date: 2024-09-29
       changes:
