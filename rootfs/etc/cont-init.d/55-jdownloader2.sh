@@ -24,7 +24,7 @@ if [ -f /config/.fix_jd_install ]; then
     done
 
     if [ "$(cat /config/.fix_jd_install)" = "download" ]; then
-        JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
+        JDOWNLOADER_URL=https://installer.jdownloader.org/JDownloader.jar
         echo "downloading JDownloader installer..."
         if curl -s -L --show-error --fail --max-time 120 -o /tmp/JDownloader.jar.download "$JDOWNLOADER_URL"
         then

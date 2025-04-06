@@ -17,7 +17,7 @@
 ARG DOCKER_IMAGE_VERSION=
 
 # Define software download URLs.
-ARG JDOWNLOADER_URL=http://installer.jdownloader.org/JDownloader.jar
+ARG JDOWNLOADER_URL=https://installer.jdownloader.org/JDownloader.jar
 
 # Download JDownloader2
 FROM --platform=$BUILDPLATFORM alpine:3.20 AS jd2
