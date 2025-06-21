@@ -9,8 +9,8 @@
 
 This is a Docker container for [JDownloader 2](http://jdownloader.org).
 
-The GUI of the application is accessed through a modern web browser (no
-installation or configuration needed on the client side) or via any VNC client.
+The graphical user interface (GUI) of the application can be accessed through a
+modern web browser, requiring no installation or configuration on the client
 
 ---
 
@@ -27,8 +27,8 @@ your valuable time every day!
 ## Quick Start
 
 **NOTE**:
-    The Docker command provided in this quick start is given as an example
-    and parameters should be adjusted to your need.
+    The Docker command provided in this quick start is an example, and parameters
+    should be adjusted to suit your needs.
 
 Launch the JDownloader 2 docker container with the following command:
 ```shell
@@ -42,10 +42,10 @@ docker run -d \
 
 Where:
 
-  - `/docker/appdata/jdownloader-2`: This is where the application stores its configuration, states, log and any files needing persistency.
+  - `/docker/appdata/jdownloader-2`: Stores the application's configuration, state, logs, and any files requiring persistency.
   - `/home/user/Downloads`: This is where downloaded files are stored.
 
-Browse to `http://your-host-ip:5800` to access the JDownloader 2 GUI.
+Access the JDownloader 2 GUI by browsing to `http://your-host-ip:5800`.
 
 ## Documentation
 
@@ -53,9 +53,7 @@ Full documentation is available at https://github.com/jlesage/docker-jdownloader
 
 ## Support or Contact
 
-Having troubles with the container or have questions?  Please
-[create a new issue].
+Having troubles with the container or have questions? Please
+[create a new issue](https://github.com/jlesage/docker-jdownloader-2/issues).
 
-For other great Dockerized applications, see https://jlesage.github.io/docker-apps.
-
-[create a new issue]: https://github.com/jlesage/docker-jdownloader-2/issues
+For other Dockerized applications, visit https://jlesage.github.io/docker-apps.
