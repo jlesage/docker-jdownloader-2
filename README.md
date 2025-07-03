@@ -602,7 +602,7 @@ server {
 		# differs from the one seen by external clients.
 		#port_in_redirect off;
 		location /jdownloader-2/websockify {
-			proxy_pass http://docker-jdownloader-2/websockify/;
+			proxy_pass http://docker-jdownloader-2/websockify;
 			proxy_http_version 1.1;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection $connection_upgrade;
