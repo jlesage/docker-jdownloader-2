@@ -79,7 +79,7 @@ fi
 
 # Handle dark mode change.
 if is-bool-val-false "${DARK_MODE:-0}"; then
-    # Dark mode disabled.  Change theme only if it is currently set to our dark mode.
+    # Dark mode disabled. Change theme only if it is currently set to our dark mode.
     CURRENT_THEME="$(jq -r -c -M '.lookandfeeltheme' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json)"
     if [ "$CURRENT_THEME" = "FLATLAF_DRACULA" ]; then
         jq -c -M '.lookandfeeltheme = "DEFAULT"' /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json | sponge /config/cfg/org.jdownloader.settings.GraphicalUserInterfaceSettings.json
@@ -90,6 +90,6 @@ else
 fi
 
 # Take ownership of the output directory.
-take-ownership --not-recursive /output
+take-ownership --not-recursive --skip-if-writable /output
 
 # vim:ft=sh:ts=4:sw=4:et:sts=4
