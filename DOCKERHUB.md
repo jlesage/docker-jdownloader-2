@@ -12,6 +12,8 @@ This is a Docker container for [JDownloader 2](http://jdownloader.org).
 The graphical user interface (GUI) of the application can be accessed through a
 modern web browser, requiring no installation or configuration on the client
 
+> This Docker container is entirely unofficial and not made by the creators of JDownloader 2.
+
 ---
 
 [![JDownloader 2 logo](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/jdownloader-2-icon.png&w=110)](http://jdownloader.org)[![JDownloader 2](https://images.placeholders.dev/?width=416&height=110&fontFamily=monospace&fontWeight=400&fontSize=52&text=JDownloader%202&bgColor=rgba(0,0,0,0.0)&textColor=rgba(121,121,121,1))](http://jdownloader.org)
