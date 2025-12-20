@@ -20,7 +20,7 @@ app:
       Users can start, stop or pause downloads, set bandwith limitations, auto-extract
       archives and much more. It's an easy-to-extend framework that can save hours of
       your valuable time every day!
-    url: http://jdownloader.org
+    url: https://jdownloader.org
   unraid:
     support_url: https://forums.unraid.net/topic/58552-support-jdownloader-2/
     category: "Downloaders:"
