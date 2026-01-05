@@ -87,6 +87,11 @@ app:
 
           https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
+    - version: 26.01.1
+      date: 2026-01-04
+      changes:
+        - 'Updated baseimage to version 4.10.6, which brings the following changes:'
+        - '2:On Mac devices, fixed conversion of Command+<Key> shortcuts to the proper Alt+<Key> shortcuts for Linux applications.'
     - version: 25.12.3
       date: 2025-12-22
       changes:
