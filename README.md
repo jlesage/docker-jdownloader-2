@@ -13,7 +13,8 @@ modern web browser, requiring no installation or configuration on the client
 side, or via any VNC client.
 
 > [!NOTE]
-> This Docker container is entirely unofficial and not made by the creators of JDownloader 2.
+> This Docker container is entirely unofficial and not made by the creators of
+> JDownloader 2.
 
 ---
 
@@ -743,6 +744,7 @@ To enable GPU acceleration, the host must have compatible open-source kernel
 drivers installed, and the GPU device `/dev/dri` must be exposed to the
 container. For example, this is done by adding the `--device /dev/dri`
 argument to the `docker run` command.
+
 ## Shell Access
 
 To access the shell of a running container, execute the following command:
