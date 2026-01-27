@@ -123,7 +123,7 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`LANG`| Sets the [locale](https://en.wikipedia.org/wiki/Locale_(computer_software)), defining the application's language, if supported. Format is `language[_territory][.codeset]`, where language is an [ISO 639 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), territory is an [ISO 3166 country code](https://en.wikipedia.org/wiki/ISO_3166-1#Current_codes), and codeset is a character set, like `UTF-8`. For example, Australian English using UTF-8 is `en_AU.UTF-8`. | `en_US.UTF-8` |
 |`TZ`| [TimeZone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) used by the container. The timezone can also be set by mapping `/etc/localtime` between the host and the container. | `Etc/UTC` |
 |`KEEP_APP_RUNNING`| When set to `1`, the application is automatically restarted if it crashes or terminates. | `0` |
-|`APP_NICENESS`| Priority at which the application runs. A niceness value of -20 is the highest, 19 is the lowest and 0 the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
+|`APP_NICENESS`| Priority at which the application runs. A niceness value of `-20` is the highest, `19` is the lowest and `0` the default. **NOTE**: A negative niceness (priority increase) requires additional permissions. The container must be run with the Docker option `--cap-add=SYS_NICE`. | `0` |
 |`INSTALL_PACKAGES`| Space-separated list of packages to install during container startup. List of available packages can be found at https://pkgs.alpinelinux.org. | (no value) |
 |`PACKAGES_MIRROR`| Mirror of the repository to use when installing packages. List of mirrors is available at https://mirrors.alpinelinux.org. | (no value) |
 |`CONTAINER_DEBUG`| When set to `1`, enables debug logging. | `0` |
@@ -148,11 +148,11 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`VNC_LISTENING_PORT`| Port used by the VNC server to serve the application's GUI. This port is internal to the container and typically does not need to be changed. By default, a container uses the default bridge network, requiring each internal port to be mapped to an external port (using the `-p` or `--publish` argument). If another network type is used, changing this port may prevent conflicts with other services/containers. **NOTE**: A value of `-1` disables VNC access to the application's GUI. | `5900` |
 |`VNC_PASSWORD`| Password required to connect to the application's GUI. See the [VNC Password](#vnc-password) section for details. | (no value) |
 |`ENABLE_CJK_FONT`| When set to `1`, installs the open-source font `WenQuanYi Zen Hei`, supporting a wide range of Chinese/Japanese/Korean characters. | `0` |
-|`MYJDOWNLOADER_EMAIL`| Email address of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (no value) |
-|`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use.  Note that this can also be configured via the JDownloader GUI. | (no value) |
-|`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance.  Note that this can also be configured via the JDownloader GUI. | (no value) |
-|`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available.  In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
-|`JDOWNLOADER_MAX_MEM`| Maximum amount of memory JDownloader is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`.  When this variable is not set, the limit is automatically calculated based on the amount of RAM of the system. | (no value) |
+|`MYJDOWNLOADER_EMAIL`| Email address of the MyJDownloader account to use. Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`MYJDOWNLOADER_PASSWORD`| Password of the MyJDownloader account to use. Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`MYJDOWNLOADER_DEVICE_NAME`| The name of this JDownloader instance. Note that this can also be configured via the JDownloader GUI. | (no value) |
+|`JDOWNLOADER_HEADLESS`| When set to `1`, JDownloader is running in headless mode, meaning that no GUI is available. In this mode, MyJDownloader should be used to remote control JDownloader. | `0` |
+|`JDOWNLOADER_MAX_MEM`| Maximum amount of memory JDownloader is allowed to use. One of the following memory unit (case insensitive) should be added as a suffix to the size: `G`, `M` or `K`. When this variable is not set, the limit is automatically calculated based on the amount of RAM of the system. | (no value) |
 
 #### Deployment Considerations
 
@@ -215,7 +215,7 @@ documentation for details.
 |------|----------|-----------------|-------------|
 | 5800 | TCP | Optional | Port to access the application's GUI via the web interface. Mapping to the host is optional if web access is not needed. For non-default bridge networks, the port can be changed with the `WEB_LISTENING_PORT` environment variable. |
 | 5900 | TCP | Optional | Port to access the application's GUI via the VNC protocol. Mapping to the host is optional if VNC access is not needed. For non-default bridge networks, the port can be changed with the `VNC_LISTENING_PORT` environment variable. |
-| 3129 | TCP | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance. Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode.  **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
+| 3129 | TCP | Optional | Port used by *MyJDownloader* mobile applications and browser extensions to establish a direct connect to the JDownloader Docker container instance. Port needs to be exposed only if *MyJDownloader* is enabled and configured in *Direct Connection* mode. **NOTE**: Since this port is being reported to the *MyJDownloader* online service, the port mapped on the host side **must** be the same (i.e. 3129). |
 
 ### Changing Parameters of a Running Container
 
@@ -760,7 +760,7 @@ creation.
 
 [MyJDownloader](https://my.jdownloader.org) is an online service providing
 remote access to your JDownloader with Web Interface, Android App, iPhone App,
-Windows Phone App and Browser Extensions.  It allows to check download status,
+Windows Phone App and Browser Extensions. It allows to check download status,
 add links and solve captchas from everywhere.
 
 To activate, open the JDownloader UI and click the *My.JDownloader* tab.
@@ -769,7 +769,7 @@ To activate, open the JDownloader UI and click the *My.JDownloader* tab.
 
 When using MyJDownloader from a device on the same local network as the
 JDownloader Docker container instance, *Direct Connection* mode can be enabled
-to reduce the latency and increase the bandwidth.  With this mode, instead of
+to reduce the latency and increase the bandwidth. With this mode, instead of
 going through the cloud, the communication is done through a direct connection
 between the device and JDownloader.
 
@@ -791,7 +791,7 @@ mode is not automatically detected/activated and the following steps are require
 ## Click'n'Load
 
 The easiest way to use the [Click'n'Load] feature is by installing the
-[MyJDownloader browser extension].  With this method, the browser extension
+[MyJDownloader browser extension]. With this method, the browser extension
 handles POST requests to `http://127.0.0.1:9666` and forward the links to
 JDownloader via the *MyJDownloader* service.
 

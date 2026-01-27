@@ -31,7 +31,7 @@ app:
         content: |-
           [MyJDownloader](https://my.jdownloader.org) is an online service providing
           remote access to your JDownloader with Web Interface, Android App, iPhone App,
-          Windows Phone App and Browser Extensions.  It allows to check download status,
+          Windows Phone App and Browser Extensions. It allows to check download status,
           add links and solve captchas from everywhere.
 
           To activate, open the JDownloader UI and click the *My.JDownloader* tab.
@@ -40,7 +40,7 @@ app:
         content: |-
           When using MyJDownloader from a device on the same local network as the
           JDownloader Docker container instance, *Direct Connection* mode can be enabled
-          to reduce the latency and increase the bandwidth.  With this mode, instead of
+          to reduce the latency and increase the bandwidth. With this mode, instead of
           going through the cloud, the communication is done through a direct connection
           between the device and JDownloader.
 
@@ -62,7 +62,7 @@ app:
         level: 2
         content: |-
           The easiest way to use the [Click'n'Load] feature is by installing the
-          [MyJDownloader browser extension].  With this method, the browser extension
+          [MyJDownloader browser extension]. With this method, the browser extension
           handles POST requests to `http://127.0.0.1:9666` and forward the links to
           JDownloader via the *MyJDownloader* service.
 
@@ -255,7 +255,7 @@ app:
     - version: 22.12.2
       date: 2022-12-11
       changes:
-        - 'Implemented workaround for issue seen with Synology devices where container would not start after an image update.  The problem is caused by Synology explicitly setting all environment variables and keeping values from the old version.'
+        - 'Implemented workaround for issue seen with Synology devices where container would not start after an image update. The problem is caused by Synology explicitly setting all environment variables and keeping values from the old version.'
     - version: 22.12.1
       date: 2022-12-01
       changes:
@@ -467,7 +467,7 @@ container:
   environment_variables:
     - name: MYJDOWNLOADER_EMAIL
       description: >-
-        Email address of the MyJDownloader account to use.  Note that this can
+        Email address of the MyJDownloader account to use. Note that this can
         also be configured via the JDownloader GUI.
       type: public
       unraid_template:
@@ -477,7 +477,7 @@ container:
         mask: false
     - name: MYJDOWNLOADER_PASSWORD
       description: >-
-        Password of the MyJDownloader account to use.  Note that this can
+        Password of the MyJDownloader account to use. Note that this can
         also be configured via the JDownloader GUI.
       type: public
       unraid_template:
@@ -487,7 +487,7 @@ container:
         mask: false
     - name: MYJDOWNLOADER_DEVICE_NAME
       description: >-
-        The name of this JDownloader instance.  Note that this can
+        The name of this JDownloader instance. Note that this can
         also be configured via the JDownloader GUI.
       type: public
       unraid_template:
@@ -498,16 +498,12 @@ container:
     - name: JDOWNLOADER_HEADLESS
       description: >-
         When set to `1`, JDownloader is running in headless mode, meaning that
-        no GUI is available.  In this mode, MyJDownloader should be used to
+        no GUI is available. In this mode, MyJDownloader should be used to
         remote control JDownloader.
       type: public
       default: 0
       unraid_template:
         title: Headless Mode
-        description: >-
-          When set to "1", JDownloader is running in headless mode, meaning that
-          no GUI is available.  In this mode, MyJDownloader should be used to
-          remote control JDownloader.
         display: advanced
         required: false
         mask: false
@@ -515,15 +511,11 @@ container:
       description: >-
         Maximum amount of memory JDownloader is allowed to use. One of the
         following memory unit (case insensitive) should be added as a suffix to
-        the size: `G`, `M` or `K`.  When this variable is not set, the limit is
+        the size: `G`, `M` or `K`. When this variable is not set, the limit is
         automatically calculated based on the amount of RAM of the system.
       type: public
       unraid_template:
         title: Maximum Memory
-        description: >-
-          Maximum amount of memory JDownloader is allowed to use.  One
-          of the following memory unit (case insensitive) should be added as a
-          suffix to the size: G, M or K.
         display: advanced
         required: false
         mask: false
@@ -538,8 +530,6 @@ container:
       include_in_quick_start: true
       unraid_template:
         title: Output Directory
-        description: >-
-          This is the default output folder for downloaded files.
         display: advanced-hide
         required: true
         mask: false
@@ -552,7 +542,7 @@ container:
         Port used by *MyJDownloader* mobile applications and browser extensions to
         establish a direct connect to the JDownloader Docker container instance.
         Port needs to be exposed only if *MyJDownloader* is enabled and configured in
-        *Direct Connection* mode.  **NOTE**: Since this port is being reported to the
+        *Direct Connection* mode. **NOTE**: Since this port is being reported to the
         *MyJDownloader* online service, the port mapped on the host side **must** be
         the same (i.e. 3129).
       mandatory: false
