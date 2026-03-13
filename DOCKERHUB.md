@@ -7,10 +7,16 @@
 [![Source](https://img.shields.io/badge/Source-GitHub-blue?logo=github&style=for-the-badge)](https://github.com/jlesage/docker-jdownloader-2)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=for-the-badge)](https://paypal.me/JocelynLeSage)
 
-This is a Docker container for [JDownloader 2](https://jdownloader.org).
+This project provides a lightweight and secure Docker container for
+[JDownloader 2](https://jdownloader.org).
 
-The graphical user interface (GUI) of the application can be accessed through a
-modern web browser, requiring no installation or configuration on the client
+Access the application's full graphical interface directly from any modern web
+browser - no downloads, installs, or setup required on the client side - or
+connect with any VNC client.
+
+The web interface also offers audio playback, seamless clipboard sharing, an
+integrated file manager and terminal for accessing the container's files and
+shell, desktop notifications, and more.
 
 > This Docker container is entirely unofficial and not made by the creators of
 > JDownloader 2.
