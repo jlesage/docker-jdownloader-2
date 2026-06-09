@@ -1,0 +1,10 @@
+services:
+  jdownloader-2:
+    container_name: jdownloader2
+    image: jlesage/jdownloader-2
+    ports:
+      - "5800:5800"
+    restart: always
+    volumes:
+      - "/docker/appdata/jdownloader-2:/config:rw"
+      - "/home/user/Downloads:/output:rw"
