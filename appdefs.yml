@@ -87,6 +87,12 @@ app:
 
           https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
+    - version: 26.07.2
+      date: 2026-07-13
+      changes:
+        - 'Updated baseimage to version 4.12.6, bringing the following changes:'
+        - '2:Fixed regression causing container startup failure when the container engine automatically mounts files under `/run`.'
+        - '2:Read-only filesystem support now requires exposing `/run` as a tmpfs.'
     - version: 26.07.1
       date: 2026-07-08
       changes:
