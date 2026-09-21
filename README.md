@@ -65,6 +65,7 @@ your valuable time every day!
    * [Web File Manager](#web-file-manager)
    * [Web Notifications](#web-notifications)
    * [Web Terminal](#web-terminal)
+   * [Web App (PWA)](#web-app-pwa)
    * [GPU Acceleration Support](#gpu-acceleration-support)
    * [MyJDownloader](#myjdownloader)
       * [Direct Connection](#direct-connection)
@@ -675,7 +676,7 @@ window to open it.
 | **Fullscreen** icon | Toggle fullscreen mode for the browser window. |
 | **Hand** icon| Allows dragging/moving the application window. Visible only when **Scaling Mode** is *None* and **Clip to Window** is enabled.
 | **Folder** icon | Opens the integrated file browser. Visible only when the [file manager](#web-file-manager) is enabled. |
-| **Terminal** icon | Opens the integrated terminal. Visibile only when the [terminal](#web-terminal) is enabled. |
+| **Terminal** icon | Opens the integrated terminal. Visible only when the [terminal](#web-terminal) is enabled. |
 | **Clipboard** text box| Mirrors the application’s clipboard. Any text typed or pasted here is sent to the application, and text copied inside the application automatically appears here. Hidden when [host clipboard sync](#host-clipboard-sync) is active. |
 | **Clear** button | Clears the clipboard. Hidden when [host clipboard sync](#host-clipboard-sync) is active. |
 | **Audio** icon | Mutes or unmutes audio streaming from the container. Visible only when [audio support](#web-audio) is enabled. |
@@ -814,6 +815,38 @@ configuring environment variables.
 
 > [!NOTE]
 > This feature is not available to VNC clients.
+
+## Web App (PWA)
+
+The web interface can be installed as an app on a computer or phone. After
+install, it has its own icon and opens in its own window, without the usual
+browser address bar.
+
+The way to install it, and how the app looks once installed, depend on the
+browser and the device:
+
+| Browser | Computer | Android | iPhone / iPad |
+|---------|----------|---------|---------------|
+| Chrome or Edge | Install icon in the address bar, or *Install page as app* in the menu. Opens as a standalone window. | Menu → *Install*. | *Share* → *Add to Home Screen* (iOS 16.4 or later). |
+| Safari | *File* → *Add to Dock* (macOS 14 or later). Opens with a small toolbar (back, forward, share). | — | *Share* → *Add to Home Screen*. |
+| Firefox | Requires a [PWA extension](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/). | Menu → *Install* or *Add to Home screen*. | Use Safari, or *Share* → *Add to Home Screen* on iOS 16.4 or later. |
+
+If [web authentication](#web-authentication) is enabled, log in before
+installing.
+
+Once installed, launch the app from the home screen, Dock, or application
+list.
+
+> [!IMPORTANT]
+> Web browsers only allow installation in secure contexts (HTTPS). This means
+> the container must be configured with secure web access. Chrome and Edge
+> also require a certificate the browser trusts; the default self-signed
+> certificate is not sufficient. See [Security](#security) for details.
+
+> [!NOTE]
+> This feature is not available to VNC clients.
+
+For more, see [Installing web apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing).
 
 ## GPU Acceleration Support
 
