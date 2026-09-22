@@ -87,6 +87,12 @@ app:
 
           https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
+    - version: 26.09.1
+      date: 2026-09-22
+      changes:
+        - 'Updated baseimage to version 4.14.0, bringing the following changes:'
+        - '2:The web interface can now be installed as an application on a computer or phone.'
+        - '2:Fixed host clipboard synchronization disabling itself.'
     - version: 26.08.2
       date: 2026-08-17
       changes:
