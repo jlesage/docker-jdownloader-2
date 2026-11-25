@@ -40,6 +40,8 @@ RUN \
     add-pkg \
         java-common \
         openjdk8-jre \
+        # Needed to use the cursor theme of the baseimage.
+        libxcursor \
         # Needed by the init script.
         jq \
         # We need a font.
