@@ -60,11 +60,14 @@ your valuable time every day!
       * [Routing Based on Hostname](#routing-based-on-hostname)
       * [Routing Based on URL Path](#routing-based-on-url-path)
    * [Web Control Panel](#web-control-panel)
-   * [Automatic Clipboard Sync](#automatic-clipboard-sync)
+   * [Host Clipboard Sync](#host-clipboard-sync)
+   * [Web H.264 Encoding](#web-h264-encoding)
    * [Web Audio](#web-audio)
+   * [Web Microphone](#web-microphone)
    * [Web File Manager](#web-file-manager)
    * [Web Notifications](#web-notifications)
    * [Web Terminal](#web-terminal)
+   * [Web App (PWA)](#web-app-pwa)
    * [GPU Acceleration Support](#gpu-acceleration-support)
    * [MyJDownloader](#myjdownloader)
       * [Direct Connection](#direct-connection)
@@ -137,12 +140,16 @@ the `-e` parameter in the format `<VARIABLE_NAME>=<VALUE>`.
 |`DISPLAY_HEIGHT`| Height (in pixels) of the application's window. | `1080` |
 |`DARK_MODE`| When set to `1`, enables dark mode for the application. See Dark Mode](#dark-mode) for details. | `0` |
 |`WEB_AUDIO`| When set to `1`, enables audio support, allowing audio produced by the application to play through the browser. See [Web Audio](#web-audio) for details. | `0` |
+|`WEB_MICROPHONE`| When set to `1`, enables microphone support, allowing audio captured by the browser to be used by the application. Requires the container to be configured with secure web access (HTTPS). See [Web Microphone](#web-microphone) for details. | `0` |
+|`WEB_HOST_CLIPBOARD_SYNC`| When set to `1`, enables support for synchronizing the host system clipboard with the application inside the container. Actual availability still depends on the browser. See [Host Clipboard Sync](#host-clipboard-sync) for details. | `1` |
 |`WEB_FILE_MANAGER`| When set to `1`, enables the web file manager, allowing interaction with files inside the container through the web browser, supporting operations like renaming, deleting, uploading, and downloading. See [Web File Manager](#web-file-manager) for details. | `0` |
 |`WEB_FILE_MANAGER_ALLOWED_PATHS`| Comma-separated list of paths within the container that the file manager can access. By default, the container's entire filesystem is not accessible, and this variable specifies allowed paths. If set to `AUTO`, commonly used folders and those mapped to the container are automatically allowed. The value `ALL` allows access to all paths (no restrictions). See [Web File Manager](#web-file-manager) for details. | `AUTO` |
 |`WEB_FILE_MANAGER_DENIED_PATHS`| Comma-separated list of paths within the container that the file manager cannot access. A denied path takes precedence over an allowed path. See [Web File Manager](#web-file-manager) for details. | (no value) |
 |`WEB_NOTIFICATION`| When set to `1`, enables the web notification service, allowing the browser to display desktop notifications from the application. Requires the container to be configured with secure web access (HTTPS). See [Web Notifications](#web-notifications) for details. | `0` |
 |`WEB_TERMINAL`| When set to `1`, enables access to a terminal from the web interface. It is strongly recommended to configure the container with secure web access (HTTPS). See [Web Terminal](#web-terminal) for details. | `0` |
+|`WEB_TERMINAL_SHELL_PATH`| The shell used by the web terminal. | `/bin/sh` |
 |`WEB_AUTHENTICATION`| When set to `1`, protects the application's GUI with a login page when accessed via a web browser. Access is granted only with valid credentials. Requires the container to be configured with secure web access (HTTPS). See [Web Authentication](#web-authentication) for details. | `0` |
+|`WEB_AUTHENTICATION_ALLOW_INSECURE`| When set to `1`, allows web authentication without `SECURE_CONNECTION`. **Not recommended.** Credentials and session tokens may travel in cleartext. Use only if you fully understand the risks. See [Web Authentication](#web-authentication) for details. | `0` |
 |`WEB_AUTHENTICATION_TOKEN_VALIDITY_TIME`| Lifetime of a token, in hours. A token is assigned to the user after successful login. As long as the token is valid, the user can access the application's GUI without logging in again. Once the token expires, the login page is displayed again. | `24` |
 |`WEB_AUTHENTICATION_USERNAME`| Optional username for web authentication. Provides a quick and easy way to configure credentials for a single user. For more secure configuration or multiple users, see the [Web Authentication](#web-authentication) section. | (no value) |
 |`WEB_AUTHENTICATION_PASSWORD`| Optional password for web authentication. Provides a quick and easy way to configure credentials for a single user. For more secure configuration or multiple users, see the [Web Authentication](#web-authentication) section. | (no value) |
@@ -517,8 +524,27 @@ for details on configuring environment variables.
 > Web authentication requires the container to be configured with secure web
 > access (HTTPS). See [Security](#security) for details.
 
+> [!CAUTION]
+> If a reverse proxy is used and it cannot use HTTPS to the container backend,
+> set `WEB_AUTHENTICATION_ALLOW_INSECURE=1` so web authentication can run with
+> `SECURE_CONNECTION=0`. This is a last resort: credentials and session tokens
+> may travel in cleartext between the proxy and the container. Do not publish
+> the container web port on an untrusted network, and ensure browsers reach the
+> application only over HTTPS through the reverse proxy.
+
 > [!NOTE]
 > This feature is not available to VNC clients.
+
+After a successful login, a token is issued and stored in the browser. The token
+remains valid for the duration set by `WEB_AUTHENTICATION_TOKEN_VALIDITY_TIME`
+(default: 24 hours). During that time, the user can access the GUI without
+logging in again.
+
+> [!NOTE]
+> Login sessions are intentionally not persisted across container restarts. When
+> the container (or the web authentication service) restarts, all existing
+> tokens become invalid and users must log in again. This is by design: session
+> state is kept in memory and cookie signing keys are regenerated on each start.
 
 #### Configuring Users Credentials
 
@@ -643,7 +669,7 @@ The control panel is available whenever the application GUI is accessed through
 a web browser. Click the small three-dots tab on the left edge of the browser
 window to open it.
 
-![Web Control Panel](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/control-panel.png&w=500)
+![Web Control Panel](https://images.weserv.nl/?url=raw.githubusercontent.com/jlesage/docker-templates/master/jlesage/images/control-panel.png&w=500&v=1)
 
 | Control | Action / Purpose |
 |---------|------------------|
@@ -653,12 +679,15 @@ window to open it.
 | **Fullscreen** icon | Toggle fullscreen mode for the browser window. |
 | **Hand** icon| Allows dragging/moving the application window. Visible only when **Scaling Mode** is *None* and **Clip to Window** is enabled.
 | **Folder** icon | Opens the integrated file browser. Visible only when the [file manager](#web-file-manager) is enabled. |
-| **Terminal** icon | Opens the integrated terminal. Visibile only when the [terminal](#web-terminal) is enabled. |
-| **Clipboard** text box| Mirrors the application’s clipboard. Any text typed or pasted here is sent to the application, and text copied inside the application automatically appears here. Hidden when [automatic clipboard synchronization](#automatic-clipboard-sync) is active. |
-| **Clear** button | Clears the clipboard. Hidden when [automatic clipboard synchronization](#automatic-clipboard-sync) is active. |
+| **Terminal** icon | Opens the integrated terminal. Visible only when the [terminal](#web-terminal) is enabled. |
+| **Clipboard** text box| Mirrors the application’s clipboard. Any text typed or pasted here is sent to the application, and text copied inside the application automatically appears here. Hidden when [host clipboard sync](#host-clipboard-sync) is active. |
+| **Clear** button | Clears the clipboard. Hidden when [host clipboard sync](#host-clipboard-sync) is active. |
 | **Audio** icon | Mutes or unmutes audio streaming from the container. Visible only when [audio support](#web-audio) is enabled. |
 | **Volume** slider| Controls the playback volume of the audio streaming from the container. Visible only when [audio support](#web-audio) is enabled. |
+| **Microphone** icon | Turns the microphone on or off. Visible only when [microphone support](#web-microphone) is enabled. |
+| **Microphone** selector | Chooses which microphone is sent to the application. Visible only when [microphone support](#web-microphone) is enabled. |
 | **Clip to Window** toggle | Only applies when **Scaling Mode** is *None*. When disabled, scrollbars appear if the application window is larger than the browser window. When enabled, no scrollbars are shown and the hand icon is used to pan. |
+| **Sync with Host Clipboard** toggle | Enables synchronization between the host system clipboard and the application. Actual availability still depends on the browser. Visible only when [host clipboard sync](#host-clipboard-sync) support is enabled. |
 | **Scaling Mode** dropdown | Controls how the application window is scaled to fit the browser. **None** – no scaling, the application window keeps its original size. **Local Scaling** – the image is scaled in the browser (application window size unchanged). **Remote Scaling** – the application window inside the container is automatically resized to match the browser window size. |
 | **Quality** slider | Adjusts image quality. Moving the slider left reduces bandwidth at the cost of visual quality. |
 | **Compression** slider | Adjusts compression level applied to screen updates. Moving the slider right increases compression, which lowers bandwidth but raises CPU usage. |
@@ -666,21 +695,30 @@ window to open it.
 | **Application version** label | Displays the version of JDownloader 2 integrated into Docker image. |
 | **Docker image** version label | Displays the version of the Docker image currently running. |
 
-## Automatic Clipboard Sync
+## Host Clipboard Sync
 
-When the container is accessed through a web browser, automatic clipboard
-synchronization enables seamless sharing of clipboard contents between the host
-system and the application running inside the container. This makes it possible
-to copy and paste text or data directly between the two environments without
-manual transfer steps.
+Host clipboard sync keeps the system clipboard on the machine running the
+browser in sync with the application inside the container. When active, copy
+and paste work directly between the host and the app without using the control
+panel clipboard.
 
-This functionality is not available when using VNC clients and is supported only
-in browsers based on the Chromium engine, such as Google Chrome and Microsoft
-Edge.
+This is different from the control panel clipboard, which only mirrors the
+application's clipboard so text can be transferred manually.
 
-Clipboard synchronization operates transparently once permission has been
-granted by the browser. Depending on browser implementation, a prompt may appear
-the first time clipboard access is requested.
+Host clipboard sync is not available when using VNC clients and is supported
+only in browsers based on the Chromium engine, such as Google Chrome and
+Microsoft Edge.
+
+It operates transparently once permission has been granted by the browser.
+Depending on browser implementation, a prompt may appear the first time
+clipboard access is requested.
+
+Support is enabled by default via the `WEB_HOST_CLIPBOARD_SYNC` environment
+variable. Setting it to `1` only enables support on the container side; the
+feature still depends on the browser (engine, secure context, and clipboard
+permissions). Setting it to `0` disables the feature for all sessions. When
+support is enabled, users can also turn host clipboard sync on or off from the
+web interface settings for their own browser.
 
 > [!IMPORTANT]
 > Web browsers only allow access to the clipboard in secure contexts (HTTPS).
@@ -688,13 +726,26 @@ the first time clipboard access is requested.
 > [Security](#security) for details.
 
 > [!TIP]
-> If automatic clipboard synchronization is not available, text can still be
-> copied and pasted using the clipboard of the
-> [control panel](#web-control-panel), which provides manual clipboard access
-> between the host and the container.
+> If host clipboard sync is not available or has been disabled, text can still
+> be copied and pasted using the clipboard of the
+> [control panel](#web-control-panel), which provides manual access to the
+> application's clipboard.
 
 > [!NOTE]
 > This feature is not available to VNC clients.
+
+## Web H.264 Encoding
+
+While the screen is moving, the web interface sends the picture with
+H.264 encoding, the same kind of compression used for video. Each update
+is much smaller than a JPEG image of the screen, so bandwidth use drops
+and scrolling stays smoother on a slow connection. A still screen is sent
+as a JPEG image. VNC clients do not use H.264 encoding.
+
+> [!NOTE]
+> Chrome and Firefox require a secure connection (HTTPS) to use H.264
+> encoding. See [Security](#security) for details on configuring secure
+> web access.
 
 ## Web Audio
 
@@ -714,6 +765,33 @@ configuring environment variables.
 
 Control of the audio stream (mute, unmute and volume) is done via the
 [control panel](#web-control-panel).
+
+> [!NOTE]
+> This feature is not available to VNC clients.
+
+## Web Microphone
+
+The container can use the microphone on the computer running the web browser.
+The application records it like any other microphone, under the name **Remote
+Microphone**.
+
+Audio is provided with the following specification:
+
+  * Raw PCM format
+  * 1 channel
+  * 16-bit sample depth
+  * 48kHz sample rate
+
+Enable the microphone by setting `WEB_MICROPHONE` to `1`. See the
+[Environment Variables](#environment-variables) section for details on
+configuring environment variables.
+
+The microphone is turned on from the [control panel](#web-control-panel).
+
+> [!IMPORTANT]
+> Web browsers only allow microphone access in secure contexts (HTTPS). This means
+> the container must be configured with secure web access. See
+> [Security](#security) for details.
 
 > [!NOTE]
 > This feature is not available to VNC clients.
@@ -782,6 +860,38 @@ configuring environment variables.
 
 > [!NOTE]
 > This feature is not available to VNC clients.
+
+## Web App (PWA)
+
+The web interface can be installed as an app on a computer or phone. After
+install, it has its own icon and opens in its own window, without the usual
+browser address bar.
+
+The way to install it, and how the app looks once installed, depend on the
+browser and the device:
+
+| Browser | Computer | Android | iPhone / iPad |
+|---------|----------|---------|---------------|
+| Chrome or Edge | Install icon in the address bar, or *Install page as app* in the menu. Opens as a standalone window. | Menu → *Install*. | *Share* → *Add to Home Screen* (iOS 16.4 or later). |
+| Safari | *File* → *Add to Dock* (macOS 14 or later). Opens with a small toolbar (back, forward, share). | — | *Share* → *Add to Home Screen*. |
+| Firefox | Requires a [PWA extension](https://addons.mozilla.org/en-US/firefox/addon/pwas-for-firefox/). | Menu → *Install* or *Add to Home screen*. | Use Safari, or *Share* → *Add to Home Screen* on iOS 16.4 or later. |
+
+If [web authentication](#web-authentication) is enabled, log in before
+installing.
+
+Once installed, launch the app from the home screen, Dock, or application
+list.
+
+> [!IMPORTANT]
+> Web browsers only allow installation in secure contexts (HTTPS). This means
+> the container must be configured with secure web access. Chrome and Edge
+> also require a certificate the browser trusts; the default self-signed
+> certificate is not sufficient. See [Security](#security) for details.
+
+> [!NOTE]
+> This feature is not available to VNC clients.
+
+For more, see [Installing web apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing).
 
 ## GPU Acceleration Support
 

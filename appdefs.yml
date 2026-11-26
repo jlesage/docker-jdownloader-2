@@ -87,6 +87,60 @@ app:
 
           https://support.jdownloader.org/en/knowledgebase/article/fix-jdownloader-installation
   changelog:
+    - version: 26.11.2
+      date: 2026-11-26
+      changes:
+        - 'Updated baseimage to version 4.15.1, which brings the following changes:'
+        - '2:Fixed issue that could affect application window display.'
+    - version: 26.11.1
+      date: 2026-11-25
+      changes:
+        - 'Updated baseimage to version 4.15.0, which brings the following changes:'
+        - '2:Added web microphone support.'
+        - '2:Added H.264 encoding support for a moving screen in the web interface.'
+        - '2:Web audio sample rate is now 48000 Hz.'
+        - '2:Web audio now skips near-silence.'
+        - '2:The web interface now shows the browser''s own mouse pointer.'
+        - '2:Improved responsiveness of screen updates in the web interface.'
+        - '2:Fixed one-pixel border showing above the main application window.'
+        - '2:Fixed main window un-maximizing on Alt+drag.'
+        - '2:Fixed web audio staying off after the web interface reconnects.'
+        - '2:Fixed idle JPEG refresh delaying the next interaction.'
+    - version: 26.09.1
+      date: 2026-09-22
+      changes:
+        - 'Updated baseimage to version 4.14.0, bringing the following changes:'
+        - '2:The web interface can now be installed as an application on a computer or phone.'
+        - '2:Fixed host clipboard synchronization disabling itself.'
+    - version: 26.08.2
+      date: 2026-08-17
+      changes:
+        - 'Updated baseimage to version 4.13.2.'
+    - version: 26.08.1
+      date: 2026-08-11
+      changes:
+        - 'Updated baseimage to version 4.13.1, bringing the following changes:'
+        - '2:Host clipboard sync can now be controlled via environment variable and web UI toggle.'
+        - '2:Improved reliability and security of the web interface.'
+        - '2:Improved reliability and security of services.'
+    - version: 26.07.2
+      date: 2026-07-13
+      changes:
+        - 'Updated baseimage to version 4.12.6, bringing the following changes:'
+        - '2:Fixed regression causing container startup failure when the container engine automatically mounts files under `/run`.'
+        - '2:Read-only filesystem support now requires exposing `/run` as a tmpfs.'
+    - version: 26.07.1
+      date: 2026-07-08
+      changes:
+        - 'Updated baseimage to version 4.12.5, bringing the following changes:'
+        - '2:Added the ability to run the container with read-only filesystem.'
+        - '2:Added the ability to configure the shell used by the web terminal.'
+        - '2:Enabled window shadows to improve support of GTK4 applications.'
+        - '2:Switched to fastcompmgr as the X compositor.'
+        - '2:Updated TigerVNC to version 1.16.2.'
+        - '2:Updated noVNC to version 1.7.0.'
+        - '2:Improved web authentication compatibility with reverse proxies by using relative redirects.'
+        - '2:Force usage of the local X display to avoid connecting to the host X server in Docker host network mode.'
     - version: 26.03.1
       date: 2026-03-14
       changes:
@@ -96,7 +150,7 @@ app:
     - version: 26.02.3
       date: 2026-02-22
       changes:
-        - 'Updated baseimage to version 4.11.2, bringing the following changes'
+        - 'Updated baseimage to version 4.11.2, bringing the following changes:'
         - '2:Fixed X server failing to find the appropriate Mesa driver on some setups.'
     - version: 26.02.2
       date: 2026-02-19

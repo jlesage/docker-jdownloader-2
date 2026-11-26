@@ -75,6 +75,10 @@ jobs:
               IS_RELEASE=no
               RELEASE_TYPE="n/a"
           fi
+          # Determine the Docker cache image.
+          name="${GITHUB_REPOSITORY#*/}"
+          name="${name#docker-}"
+          CACHE_IMAGE="ghcr.io/${GITHUB_REPOSITORY_OWNER}/${name}:buildcache"
           # Print results.
           echo "::group::Results"
           echo "Github reference: $GITHUB_REF"
@@ -83,6 +87,7 @@ jobs:
           echo "Docker container version: $VERSION"
           echo "Docker container version label: $LABEL_VERSION"
           echo "Docker container tag(s): $TAGS"
+          echo "Docker cache image: $CACHE_IMAGE"
           echo "::endgroup::"
           # Export outputs.
           echo "is_release=${IS_RELEASE}" >> $GITHUB_OUTPUT
@@ -90,26 +95,26 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "label_version=${LABEL_VERSION}" >> $GITHUB_OUTPUT
           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "CACHE_IMAGE=${CACHE_IMAGE}" >> $GITHUB_ENV
           #echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
         with:
           platforms: arm,arm64,ppc64le,mips64,s390x
 
       - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Login to DockerHub
         if: ${{ steps.prep.outputs.is_release == 'yes' }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Login to GitHub Container Registry
-        if: ${{ steps.prep.outputs.is_release == 'yes' }}
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -124,8 +129,8 @@ jobs:
           tags: ${{ steps.prep.outputs.tags }}
           build-args: |
             DOCKER_IMAGE_VERSION=${{ steps.prep.outputs.label_version }}
-          cache-from: type=gha,scope=${{ env.DOCKER_IMAGE_NAME }}
-          cache-to: type=gha,mode=max,scope=${{ env.DOCKER_IMAGE_NAME }}
+          cache-from: type=registry,ref=${{ env.CACHE_IMAGE }}
+          cache-to: ${{ github.ref == 'refs/heads/master' && format('type=registry,ref={0},mode=max', env.CACHE_IMAGE) || '' }}
 
       - name: Inspect
         if: ${{ steps.prep.outputs.is_release == 'yes' }}
@@ -133,7 +138,7 @@ jobs:
           docker buildx imagetools inspect ${{ env.DOCKER_IMAGE_NAME }}:${{ steps.prep.outputs.version }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         if: ${{ steps.prep.outputs.release_type == 'standard' }}
 
       - name: Dockerhub description
